@@ -1,13 +1,13 @@
-import BarChart from "../components/BarChart";
+import BarChart from "../components/charts/BarChart";
 import { useEffect, useState } from "react";
-import Nav from "../components/Nav";
-import Vector from "../img/Vector.png";
-import left from "../img/ArrowLeft.png";
+import Nav from "../components/common/Nav";
+import Vector from "../assets/images/Vector.png";
+import left from "../assets/images/ArrowLeft.png";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useGetTransactionsMutation } from "../redux/transaction/transaction-api";
 import { useSelector } from "react-redux";
-import Loading from "../components/Loading";
+import Loading from "../components/common/Loading";
 // import TopMobileBar from "../components/TopMobileBar";
 
 const Statistic = () => {
@@ -158,101 +158,102 @@ const Statistic = () => {
   return (
     transactions && (
       <>
-        <div className="statistic_container">
-          {/* <TopMobileBar /> */}
-          <div className="header_container">
-            <div className="img">
-              <img onClick={() => navigate(-1)} src={left} alt="left" />
+        <div className="min-h-screen lg:flex lg:justify-center lg:items-start lg:pt-8 lg:pr-20">
+          <div className="lg:max-w-4xl lg:w-full">
+            {/* Header */}
+            <div className="bg-gradient-blue rounded-b-[20px] py-4 lg:rounded-[30px] lg:py-6">
+              <div className="flex items-center px-[5%] lg:px-8">
+                <div className="w-8 lg:w-10">
+                  <img onClick={() => navigate(-1)} src={left} alt="left" className="cursor-pointer hover:scale-110 transition-transform" />
+                </div>
+                <h4 className="text-white text-center flex-1 text-lg lg:text-2xl font-semibold">Statistics</h4>
+                <div className="w-8 lg:w-10"></div>
+              </div>
             </div>
-            <h4>Statistics</h4>
-          </div>
-          <div className="chart_data">
-            <BarChart chartData={dataWeek} />
-          </div>
 
-          {isLoading 
-          ? <Loading />
-          : <>
-             <div className="transaction_header">
-            <h6>Top Spending</h6>
-            <div style={{ display: "flex", gap: "5px" }}>
-              <form action="">
-                <select
-                  style={{
-                    borderColor: "#6666",
-                    padding: "3px",
-                    borderRadius: "8px",
-                    width: "90px",
-                  }}
-                  onChange={handleSelect}
-                  name=""
-                  id=""
-                >
-                  <option value="">Filter by</option>
-                  <option value="Amount">Amount</option>
-                  <option value="Name">Name</option>
-                  <option value="Date">Date</option>
-                </select>
-              </form>
-              <img onClick={handleToggleAmount} src={Vector} alt={Vector} />
+            {/* Chart */}
+            <div className="px-[5%] py-6 lg:px-8 lg:py-8">
+              <div className="bg-white rounded-lg shadow-md p-4 lg:p-6">
+                <BarChart chartData={dataWeek} />
+              </div>
             </div>
-          </div>
-          <div className="transactionsHistory">
-            <div>
-              {transactions?.transactions?.map((ele, index) => (
-                <Link key={index} to={`/transaction/detail/${ele._id}`}>
-                  <motion.div
-                    className="transaction_item"
-                    key={index}
-                    initial={{ y: "100vh" }}
-                    animate={{
-                      opacity: [0, 0.5, 1],
-                      y: [100, 0, 0],
-                    }}
-                    transition={{
-                      type: "twin",
-                      duration: 0.5,
-                      delay: (parseInt(index) + 0.5) / 10,
-                    }}
-                  >
-                    <div className="transaction_headline">
-                      <div className="transaction_icon">
-                        <h3>{ele.name && ele.name.charAt(0)}</h3>
-                      </div>
-                      <div className="transaction_name_date">
-                        <h5>{ele.name}</h5>
-                        <p>
-                          {new Date(ele.createdAt).toLocaleDateString("de-DE", {
-                            year: "numeric",
-                            month: "2-digit",
-                            day: "2-digit",
-                          })}
-                        </p>
-                      </div>
-                    </div>
 
-                    <p
-                      className="transaction_amount"
-                      style={
-                        ele.income ? { color: "#25A969" } : { color: "#F95B51" }
-                      }
+            {isLoading 
+            ? <Loading />
+            : <>
+              {/* Transaction Header with Filters */}
+              <div className="px-[5%] py-2 flex justify-between items-center lg:px-8">
+                <h6 className="m-0 text-base lg:text-xl font-semibold">Top Spending</h6>
+                <div className="flex gap-2">
+                  <form action="">
+                    <select
+                      onChange={handleSelect}
+                      name=""
+                      id=""
+                      className="border border-gray-400 px-2 py-1 rounded-lg text-sm lg:px-3 lg:py-2 lg:text-base focus:outline-none focus:border-darkBlue"
                     >
-                      {ele.income && ele.income
-                        ? `+ $${ele.amount.toFixed(2)}`
-                        : `- $${ele.amount.toFixed(2)}`}
-                    </p>
-                  </motion.div>
-                </Link>
-              ))}
-            </div>
+                      <option value="">Filter by</option>
+                      <option value="Amount">Amount</option>
+                      <option value="Name">Name</option>
+                      <option value="Date">Date</option>
+                    </select>
+                  </form>
+                  <img onClick={handleToggleAmount} src={Vector} alt={Vector} className="cursor-pointer hover:scale-110 transition-transform w-5 lg:w-6" />
+                </div>
+              </div>
+
+              {/* Transactions List */}
+              <div className="overflow-auto h-[40vh] lg:h-[35vh] px-[5%] mt-2 pb-24 lg:pb-8 lg:px-8 scrollbar-hide">
+                <div>
+                  {transactions?.transactions?.map((ele, index) => (
+                    <Link key={index} to={`/transaction/detail/${ele._id}`} className="no-underline">
+                      <motion.div
+                        className="flex justify-between items-center my-4 lg:my-5 lg:p-3 lg:rounded-lg lg:hover:bg-gray-50 transition-colors"
+                        initial={{ y: "100vh" }}
+                        animate={{
+                          opacity: [0, 0.5, 1],
+                          y: [100, 0, 0],
+                        }}
+                        transition={{
+                          type: "twin",
+                          duration: 0.5,
+                          delay: (parseInt(index) + 0.5) / 10,
+                        }}
+                      >
+                        <div className="flex items-center">
+                          <div className="p-3 lg:p-4 bg-[#dddddd]/80 rounded-[10px] mr-2 flex items-center justify-center">
+                            <h3 className="m-0 text-gray-600 lg:text-xl">{ele.name && ele.name.charAt(0)}</h3>
+                          </div>
+                          <div>
+                            <h5 className="m-0 text-left text-black font-medium lg:text-lg">{ele.name}</h5>
+                            <p className="m-0 text-left text-gray-500 text-sm lg:text-base">
+                              {new Date(ele.createdAt).toLocaleDateString("de-DE", {
+                                year: "numeric",
+                                month: "2-digit",
+                                day: "2-digit",
+                              })}
+                            </p>
+                          </div>
+                        </div>
+
+                        <p
+                          className="text-lg lg:text-xl font-medium"
+                          style={
+                            ele.income ? { color: "#25A969" } : { color: "#F95B51" }
+                          }
+                        >
+                          {ele.income && ele.income
+                            ? `+ $${ele.amount.toFixed(2)}`
+                            : `- $${ele.amount.toFixed(2)}`}
+                        </p>
+                      </motion.div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </>
+            }
           </div>
-          </>
-          }
-         
-
-       
-
-
         </div>
         <Nav />
       </>

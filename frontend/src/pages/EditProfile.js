@@ -1,12 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
-import "../scss/EditProfile.scss";
 import { MdDelete } from "react-icons/md";
-import Nav from "../components/Nav";
+import Nav from "../components/common/Nav";
 import { motion } from "framer-motion";
-import TopMobileBar from "../components/TopMobileBar";
+import TopMobileBar from "../components/common/TopMobileBar";
 import { useSelector } from "react-redux";
 import { useGetTransactionsMutation } from "../redux/transaction/transaction-api";
-import Loading from "../components/Loading";
+import Loading from "../components/common/Loading";
 import { apiBaseUrl } from "../api/api";
 import { useUpdateUserMutation } from "../redux/auth/auth-api";
 import { FaRegUser } from "react-icons/fa";
@@ -86,139 +85,164 @@ const EditProfile = () => {
 
   return (
     <>
-      <div className="editProfile">
-        <TopMobileBar />
-        <div className="topBlueContainer">
-          <h4>Edit Profile</h4>
-        </div>
-        <motion.div
-          className="whiteContainer"
-          initial={{ y: "-8vh" }}
-          animate={{ y: 10 }}
-          transition={{
-            delay: 0.5,
-            duration: 0.3,
-            stiffness: 200,
-            ease: "easeInOut",
-          }}
-          whileHover={{ scale: 1.1 }}
-        >
+      <div className="min-h-screen lg:flex lg:justify-center lg:items-start lg:pt-8 lg:pr-20">
+        <div className="lg:max-w-4xl lg:w-full">
+          <div className="bg-gradient-blue rounded-b-[20px] h-[25vh] lg:h-[30vh] lg:rounded-[30px]">
+            <TopMobileBar />
+            <h4 className="text-white text-center pt-12 lg:pt-16 lg:text-2xl font-semibold">Edit Profile</h4>
+          </div>
+          
           <motion.div
-            initial={{ y: "100vh" }}
-            animate={{
-              opacity: [0, 0.5, 1],
-              y: [100, 0, 0],
-            }}
+            initial={{ y: "-8vh" }}
+            animate={{ y: 10 }}
             transition={{
-              type: "twin",
-              duration: 0.5,
-              delay: 2 / 10,
+              delay: 0.5,
+              duration: 0.3,
+              stiffness: 200,
+              ease: "easeInOut",
             }}
+            whileHover={{ scale: 1.01 }}
+            className="bg-white rounded-[30px] w-[90%] mx-auto -mt-6 shadow-[5px_5px_5px_5px_rgba(0,0,0,0.1)] lg:w-[95%] lg:-mt-8"
           >
-            <div className="image-container">
-              <img
-                src={
-                  profile_image && typeof profile_image !== 'string' ? URL.createObjectURL(profile_image) :
-                    profile_image?.startsWith("http")
-                      ? profile_image
-                      : profile_image ? `${apiBaseUrl}/${profile_image}` : null
-                }
-                alt={profile_image ? name : null}
-                className="profilePicture"
-              />
-              <MdOutlineEdit
-                className="edit-image-icon"
-                onClick={openFileInput}
-              />
-              <input
-                type="file"
-                ref={fileInputRef}
-                style={{ display: 'none' }}
-                onChange={handleImageChange}
-              />
-              {profile_image && (
-                <MdDelete
-                  className="remove-image-icon"
-                  onClick={handleRemoveImage}
-                />)}
-            </div>
-          </motion.div>
+            <motion.div
+              initial={{ y: "100vh" }}
+              animate={{
+                opacity: [0, 0.5, 1],
+                y: [100, 0, 0],
+              }}
+              transition={{
+                type: "twin",
+                duration: 0.5,
+                delay: 2 / 10,
+              }}
+              className="pt-8 lg:pt-12"
+            >
+              <div className="relative w-32 h-32 lg:w-40 lg:h-40 mx-auto">
+                <img
+                  src={
+                    profile_image && typeof profile_image !== 'string' ? URL.createObjectURL(profile_image) :
+                      profile_image?.startsWith("http")
+                        ? profile_image
+                        : profile_image ? `${apiBaseUrl}/${profile_image}` : null
+                  }
+                  alt={profile_image ? name : null}
+                  className="w-full h-full rounded-full border-4 border-white shadow-lg object-cover"
+                />
+                <MdOutlineEdit
+                  className="absolute bottom-0 right-0 bg-darkBlue text-white p-2 rounded-full cursor-pointer hover:scale-110 transition-transform text-3xl lg:text-4xl"
+                  onClick={openFileInput}
+                />
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  style={{ display: 'none' }}
+                  onChange={handleImageChange}
+                />
+                {profile_image && (
+                  <MdDelete
+                    className="absolute top-0 right-0 bg-red-500 text-white p-2 rounded-full cursor-pointer hover:scale-110 transition-transform text-3xl lg:text-4xl"
+                    onClick={handleRemoveImage}
+                  />
+                )}
+              </div>
+            </motion.div>
 
-          {(loadingTransactions || loadingUpdate) ? <Loading />
-            : <div className="userInformation">
+            {(loadingTransactions || loadingUpdate) ? <Loading />
+              : <div className="px-[5%] py-6 lg:px-8 lg:py-8">
+                <motion.div
+                  className="bg-white rounded-lg shadow-sm p-4 mb-4 lg:p-5"
+                  initial={{ y: "100vh" }}
+                  animate={{
+                    opacity: [0, 0.5, 1],
+                    y: [100, 0, 0],
+                  }}
+                  transition={{
+                    type: "twin",
+                    duration: 0.5,
+                  }}
+                >
+                  <div className="flex items-center gap-3">
+                    <FaRegUser className="text-darkBlue text-xl lg:text-2xl" />
+                    {!editMode.name ? (
+                      <h5 
+                        className="flex-1 text-base lg:text-lg m-0 cursor-pointer hover:bg-gray-50 p-2 rounded flex justify-between items-center"
+                        onMouseEnter={() => setShowEditIcons({ ...showEditIcons, name: true })} 
+                        onMouseLeave={() => setShowEditIcons({ ...showEditIcons, name: false })}
+                      >
+                        <span>{name}</span>
+                        <MdOutlineEdit 
+                          className="text-gray-400 hover:text-darkBlue transition-colors" 
+                          onClick={() => setEditMode({ ...editMode, name: true })} 
+                        />
+                      </h5>
+                    ) : (
+                      <input
+                        type="text"
+                        value={name}
+                        onBlur={() => setEditMode({ ...editMode, name: false })}
+                        onChange={(e) => setName(e.target.value)}
+                        autoFocus
+                        className="flex-1 border-b-2 border-darkBlue py-2 px-2 text-base lg:text-lg focus:outline-none"
+                      />
+                    )}
+                  </div>
+                </motion.div>
 
-              <motion.div
-                className="user_item"
-                initial={{ y: "100vh" }}
-                animate={{
-                  opacity: [0, 0.5, 1],
-                  y: [100, 0, 0],
-                }}
-                transition={{
-                  type: "twin",
-                  duration: 0.5,
-                }}
-              >
-                <div className="user_headline">
-                  <FaRegUser className="edit-profile-icon" />
-                  {!editMode.name ? (<h5 onMouseEnter={() => setShowEditIcons({ ...showEditIcons, name: true })} onMouseLeave={() => setShowEditIcons({ ...showEditIcons, name: false })}>
-                    <span className="mr-5">{name}</span>
-                    <MdOutlineEdit onClick={() => setEditMode({ ...editMode, name: true })} />
-                  </h5>) : (
-                    <input
-                      type="text"
-                      value={name}
-                      onBlur={() => setEditMode({ ...editMode, name: false })}
-                      onChange={(e) => setName(e.target.value)}
-                      autoFocus
-                    />
-                  )}
-
-                </div>
-
-              </motion.div>
-
-              <motion.div
-                className="user_item"
-                initial={{ y: "100vh" }}
-                animate={{
-                  opacity: [0, 0.5, 1],
-                  y: [100, 0, 0],
-                }}
-                transition={{
-                  type: "twin",
-                  duration: 0.5,
-                }}
-              >
-                <div className="user_headline">
-                  <MdOutlineAlternateEmail className="edit-profile-icon" />
-                  {!editMode.email ? (<h5 onMouseEnter={() => setShowEditIcons({ ...showEditIcons, email: true })} onMouseLeave={() => setShowEditIcons({ ...showEditIcons, email: false })}>
-                    {email}
-
-                    <MdOutlineEdit className="edit-icon" onClick={() => setEditMode({ ...editMode, email: true })} />
-
-                  </h5>)
-                    : (
+                <motion.div
+                  className="bg-white rounded-lg shadow-sm p-4 mb-6 lg:p-5"
+                  initial={{ y: "100vh" }}
+                  animate={{
+                    opacity: [0, 0.5, 1],
+                    y: [100, 0, 0],
+                  }}
+                  transition={{
+                    type: "twin",
+                    duration: 0.5,
+                  }}
+                >
+                  <div className="flex items-center gap-3">
+                    <MdOutlineAlternateEmail className="text-darkBlue text-xl lg:text-2xl" />
+                    {!editMode.email ? (
+                      <h5 
+                        className="flex-1 text-base lg:text-lg m-0 cursor-pointer hover:bg-gray-50 p-2 rounded flex justify-between items-center"
+                        onMouseEnter={() => setShowEditIcons({ ...showEditIcons, email: true })} 
+                        onMouseLeave={() => setShowEditIcons({ ...showEditIcons, email: false })}
+                      >
+                        <span>{email}</span>
+                        <MdOutlineEdit 
+                          className="text-gray-400 hover:text-darkBlue transition-colors" 
+                          onClick={() => setEditMode({ ...editMode, email: true })} 
+                        />
+                      </h5>
+                    ) : (
                       <input
                         type="email"
                         value={email}
                         onBlur={() => setEditMode({ ...editMode, email: false })}
                         onChange={(e) => setEmail(e.target.value)}
                         autoFocus
+                        className="flex-1 border-b-2 border-darkBlue py-2 px-2 text-base lg:text-lg focus:outline-none"
                       />
                     )}
-                </div>
-              </motion.div>
-
+                  </div>
+                </motion.div>
+              </div>
+            }
+            
+            <div className="px-[5%] pb-6 lg:px-8 lg:pb-8">
+              <button 
+                onClick={handleSaveProfile} 
+                disabled={isLoading}
+                className="bg-darkBlue border-none py-4 rounded-[50px] text-white text-lg font-semibold w-full lg:text-xl lg:py-5 hover:bg-opacity-90 transition-all disabled:opacity-50"
+              >
+                Save Profile
+                {isLoading && (
+                  <span className="spinner-border spinner-border-sm mx-1" role="status"></span>
+                )}
+              </button>
             </div>
-          }
-          <button onClick={handleSaveProfile} disabled={isLoading} >
-            Save Profile
-            {isLoading && (
-              <span className="spinner-border spinner-border-sm mx-1" role="status"></span>
-            )}
-          </button>
-        </motion.div>
+          </motion.div>
+        </div>
       </div>
       <Nav />
     </>

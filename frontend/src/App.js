@@ -1,4 +1,3 @@
-import "./App.scss";
 import { Routes, Route, Navigate, BrowserRouter } from "react-router-dom";
 import Home from "./pages/Home";
 import Wallet from "./pages/Wallet";
@@ -10,9 +9,9 @@ import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import Add from "./pages/Add";
-import EditExpense from "./components/EditExpense";
-import EditIncome from "./components/EditIncome";
-import AuthRequired from "./components/AuthRequired";
+import EditExpense from "./components/forms/EditExpense";
+import EditIncome from "./components/forms/EditIncome";
+import AuthRequired from "./components/common/AuthRequired";
 import { useAppContext } from "./context/AppContext";
 import "bootstrap/dist/css/bootstrap.css";
 import EditProfile from "./pages/EditProfile";
@@ -23,7 +22,7 @@ function App() {
   const { token, saveToken } = appctx;
 
   return (
-    <div className="App">
+    <div className="min-h-screen bg-white">
       <BrowserRouter>
 
         <Routes>

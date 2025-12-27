@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-import { apiBaseUrl } from "../api/api";
+import { apiBaseUrl } from "../../api/api";
 import Loading from "./Loading";
 
 const AuthRequired = ({ token, children, setToken }) => {
@@ -25,7 +25,6 @@ const AuthRequired = ({ token, children, setToken }) => {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
           setLoading(false);
           setToken(data.token);
 
