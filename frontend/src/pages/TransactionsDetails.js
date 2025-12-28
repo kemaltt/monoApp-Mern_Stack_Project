@@ -22,7 +22,7 @@ const TransactionsDetails = () => {
 
   return (
     detailTransaction && (
-      <div>
+      <div className="bg-white dark:bg-gray-900 min-h-screen">
         <div className="min-h-screen lg:flex lg:justify-center lg:items-start lg:pt-8 lg:pr-20">
           <div className="lg:max-w-4xl lg:w-full">
             <div className="bg-gradient-blue rounded-b-[20px] py-4 lg:rounded-[30px] lg:py-6">
@@ -34,13 +34,13 @@ const TransactionsDetails = () => {
               </div>
             </div>
             
-            <div className="bg-white rounded-[30px] w-[90%] mx-auto -mt-6 shadow-[5px_5px_5px_5px_rgba(0,0,0,0.1)] lg:w-[95%] lg:-mt-8">
+            <div className="bg-white dark:bg-gray-800 rounded-[30px] w-[90%] mx-auto -mt-6 shadow-[5px_5px_5px_5px_rgba(0,0,0,0.1)] dark:shadow-gray-900/50 lg:w-[95%] lg:-mt-8">
               {isLoading
                 ? <Loading />
                 : <>
                   <div className="pt-8 pb-4 text-center lg:pt-12 lg:pb-6">
-                    <div className="w-20 h-20 lg:w-28 lg:h-28 bg-[#dddddd]/80 rounded-full mx-auto flex items-center justify-center mb-4">
-                      <h3 className="text-gray-600 text-2xl lg:text-4xl m-0">{detailTransaction?.name?.charAt(0)}</h3>
+                    <div className="w-20 h-20 lg:w-28 lg:h-28 bg-[#dddddd]/80 dark:bg-gray-600 rounded-full mx-auto flex items-center justify-center mb-4">
+                      <h3 className="text-gray-600 dark:text-gray-200 text-2xl lg:text-4xl m-0">{detailTransaction?.name?.charAt(0)}</h3>
                     </div>
                     <p
                       style={
@@ -52,19 +52,19 @@ const TransactionsDetails = () => {
                     >
                       <FormattedMessage id={detailTransaction.income ? "home.income" : "home.expenses"} />
                     </p>
-                    <h2 className="text-black text-3xl lg:text-5xl font-bold">${detailTransaction?.amount?.toFixed(2)} </h2>
+                    <h2 className="text-black dark:text-white text-3xl lg:text-5xl font-bold">${detailTransaction?.amount?.toFixed(2)} </h2>
                   </div>
                   
                   <div className="px-[5%] lg:px-8">
-                    <div className="flex justify-between items-center py-4 border-t border-gray-200">
-                      <h5 className="text-base lg:text-lg font-semibold m-0"><FormattedMessage id="transaction.details" /></h5>
+                    <div className="flex justify-between items-center py-4 border-t border-gray-200 dark:border-gray-700">
+                      <h5 className="text-base lg:text-lg font-semibold m-0 text-gray-900 dark:text-white"><FormattedMessage id="transaction.details" /></h5>
                       <img src={up} alt="up" className="w-4 h-4 lg:w-5 lg:h-5" />
                     </div>
                     
                     <div className="pb-6">
                       <div className="space-y-3">
                         <p className="flex justify-between text-sm lg:text-base">
-                          <span className="text-gray-500"><FormattedMessage id="transaction.status" /></span>
+                          <span className="text-gray-500 dark:text-gray-400"><FormattedMessage id="transaction.status" /></span>
                           <span
                             style={
                               detailTransaction.income
@@ -77,12 +77,12 @@ const TransactionsDetails = () => {
                           </span>
                         </p>
                         <p className="flex justify-between text-sm lg:text-base">
-                          <span className="text-gray-500"><FormattedMessage id="transaction.from" /></span>
+                          <span className="text-gray-500 dark:text-gray-400"><FormattedMessage id="transaction.from" /></span>
                           <span className="font-medium">{detailTransaction.name}</span>
                         </p>
                         <p className="flex justify-between text-sm lg:text-base">
                           <span className="text-gray-500"><FormattedMessage id="transaction.time" /></span>
-                          <span className="font-medium">
+                          <span className="font-medium text-gray-900 dark:text-white">
                             {new Date(detailTransaction.createdAt).toLocaleTimeString(
                               [],
                               { hour: "2-digit", minute: "2-digit" }
@@ -90,8 +90,8 @@ const TransactionsDetails = () => {
                           </span>
                         </p>
                         <p className="flex justify-between text-sm lg:text-base">
-                          <span className="text-gray-500"><FormattedMessage id="transaction.date" /></span>
-                          <span className="font-medium">
+                          <span className="text-gray-500 dark:text-gray-400"><FormattedMessage id="transaction.date" /></span>
+                          <span className="font-medium text-gray-900 dark:text-white">
                             {new Date(detailTransaction.createdAt)
                               .toUTCString()
                               .slice(0, 17)}
@@ -99,17 +99,17 @@ const TransactionsDetails = () => {
                         </p>
                       </div>
                       
-                      <p className="flex justify-between py-3 mt-4 border-t border-gray-200 text-sm lg:text-base">
-                        <span className="text-gray-500"><FormattedMessage id={detailTransaction.income ? "transaction.earnings" : "transaction.spending"} /></span>
-                        <span className="font-semibold">$ {detailTransaction?.amount?.toFixed(2)}</span>
+                      <p className="flex justify-between py-3 mt-4 border-t border-gray-200 dark:border-gray-700 text-sm lg:text-base">
+                        <span className="text-gray-500 dark:text-gray-400"><FormattedMessage id={detailTransaction.income ? "transaction.earnings" : "transaction.spending"} /></span>
+                        <span className="font-semibold text-gray-900 dark:text-white">$ {detailTransaction?.amount?.toFixed(2)}</span>
                       </p>
-                      <p className="flex justify-between py-3 border-t border-gray-200 text-base lg:text-lg">
-                        <span className="font-semibold"><FormattedMessage id="transaction.total" /></span>
-                        <span className="font-bold">$ {detailTransaction?.amount?.toFixed(2)}</span>
+                      <p className="flex justify-between py-3 border-t border-gray-200 dark:border-gray-700 text-base lg:text-lg">
+                        <span className="font-semibold text-gray-900 dark:text-white"><FormattedMessage id="transaction.total" /></span>
+                        <span className="font-bold text-gray-900 dark:text-white">$ {detailTransaction?.amount?.toFixed(2)}</span>
                       </p>
 
                       <div className="mt-6">
-                        <p className="text-gray-500 text-sm lg:text-base mb-3"><FormattedMessage id="transaction.receipt" /></p>
+                        <p className="text-gray-500 dark:text-gray-400 text-sm lg:text-base mb-3"><FormattedMessage id="transaction.receipt" /></p>
                         {detailTransaction.img ? (
                           <img
                             src={
@@ -118,7 +118,7 @@ const TransactionsDetails = () => {
                                 : `${apiBaseUrl}/${detailTransaction.img.url}`
                             }
                             alt="upload receipt"
-                            className="w-full h-auto rounded-lg border-2 border-gray-200"
+                            className="w-full h-auto rounded-lg border-2 border-gray-200 dark:border-gray-600"
                           />
                         ) : null}
                       </div>

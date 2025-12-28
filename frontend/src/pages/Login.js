@@ -28,10 +28,10 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-cover bg-no-repeat bg-[position:0_-30vh] px-[8%] lg:flex lg:items-center lg:justify-center lg:px-4" 
+    <div className="min-h-screen bg-cover bg-no-repeat bg-[position:0_-30vh] dark:bg-gray-900 px-[8%] lg:flex lg:items-center lg:justify-center lg:px-4" 
          style={{ backgroundImage: "url('../assets/images/lightBlueBackground.png')" }}>
       <div className="lg:max-w-2xl lg:w-full">
-        <h1 className="pt-8 pb-6 text-center lg:text-5xl"><FormattedMessage id="auth.login" /></h1>
+        <h1 className="pt-8 pb-6 text-center text-gray-900 dark:text-white lg:text-5xl"><FormattedMessage id="auth.login" /></h1>
         
         {/* Animated Man Image */}
         <img
@@ -43,10 +43,10 @@ const Login = () => {
         <motion.form
           onSubmit={handleSubmit(handleLogIn)}
           {...formAnimation}
-          className="bg-white shadow-[5px_5px_5px_5px_rgba(0,0,0,0.1)] rounded-[20px] -mt-28 pt-16 pb-6 block lg:-mt-20 lg:pt-20 lg:pb-8"
+          className="bg-white dark:bg-gray-800 shadow-[5px_5px_5px_5px_rgba(0,0,0,0.1)] dark:shadow-gray-900/50 rounded-[20px] -mt-28 pt-16 pb-6 block lg:-mt-20 lg:pt-20 lg:pb-8"
         >
           <div className="px-[5%] pt-2 pb-14 lg:px-[8%] lg:pt-4">
-            <label htmlFor="email" className="text-gray-500 font-medium text-xs block text-left pb-2 lg:text-sm">
+            <label htmlFor="email" className="text-gray-500 dark:text-gray-400 font-medium text-xs block text-left pb-2 lg:text-sm">
               <FormattedMessage id="auth.email" />
             </label>
             <input
@@ -60,13 +60,13 @@ const Login = () => {
                   message: intl.formatMessage({ id: 'validation.emailInvalid' }),
                 },
               })}
-              className="block text-left py-3 px-[4%] mb-2 w-full rounded-lg border border-[#dddddd] lg:py-4 lg:text-base focus:outline-none focus:border-darkBlue"
+              className="block text-left py-3 px-[4%] mb-2 w-full rounded-lg border border-[#dddddd] dark:border-gray-600 dark:bg-gray-700 dark:text-white lg:py-4 lg:text-base focus:outline-none focus:border-darkBlue dark:focus:border-blue-400"
             />
             {errors.email && (
               <span className="text-red-500 text-xs lg:text-sm">{errors.email.message}</span>
             )}
 
-            <label htmlFor="password" className="text-gray-500 font-medium text-xs block text-left pb-2 mt-4 lg:text-sm">
+            <label htmlFor="password" className="text-gray-500 dark:text-gray-400 font-medium text-xs block text-left pb-2 mt-4 lg:text-sm">
               <FormattedMessage id="auth.password" />
             </label>
             <div className="relative">
@@ -81,12 +81,12 @@ const Login = () => {
                     message: intl.formatMessage({ id: 'validation.passwordMinLength' }),
                   },
                 })}
-                className="block text-left py-3 px-[4%] pr-12 mb-4 w-full rounded-lg border border-[#dddddd] lg:py-4 lg:text-base focus:outline-none focus:border-darkBlue"
+                className="block text-left py-3 px-[4%] pr-12 mb-4 w-full rounded-lg border border-[#dddddd] dark:border-gray-600 dark:bg-gray-700 dark:text-white lg:py-4 lg:text-base focus:outline-none focus:border-darkBlue dark:focus:border-blue-400"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-darkBlue"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 hover:text-darkBlue dark:hover:text-blue-400"
               >
                 {showPassword ? <BiHide size={24} /> : <BiShow size={24} />}
               </button>

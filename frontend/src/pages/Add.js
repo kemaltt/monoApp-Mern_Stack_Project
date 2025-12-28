@@ -63,7 +63,7 @@ const Add = () => {
 
   return (
     <>
-      <div className="min-h-screen lg:flex lg:justify-center lg:items-start lg:pt-8 lg:pr-20">
+      <div className="min-h-screen bg-white dark:bg-gray-900 lg:flex lg:justify-center lg:items-start lg:pt-8 lg:pr-20">
         <div className="lg:max-w-4xl lg:w-full">
           <div
             style={
@@ -104,19 +104,19 @@ const Add = () => {
 
             <motion.form
               onSubmit={handleSubmit(handleTransaction)}
-              className="bg-white rounded-[20px] shadow-[5px_5px_5px_5px_rgba(0,0,0,0.1)] mx-[5%] lg:mx-8 mt-4"
+              className="bg-white dark:bg-gray-800 rounded-[20px] shadow-[5px_5px_5px_5px_rgba(0,0,0,0.1)] dark:shadow-gray-900/50 mx-[5%] lg:mx-8 mt-4"
             >
               <div className="px-[5%] py-8 lg:px-[8%] lg:py-10">
-                <label className="text-gray-500 font-medium text-xs block text-left pb-2 lg:text-sm"><FormattedMessage id="add.name" /></label>
+                <label className="text-gray-500 dark:text-gray-400 font-medium text-xs block text-left pb-2 lg:text-sm"><FormattedMessage id="add.name" /></label>
                 <input
                   type="text"
                   placeholder={intl.formatMessage({ id: 'add.name' })}
                   {...register("name", { required: intl.formatMessage({ id: 'validation.nameRequired' }) })}
-                  className="block text-left py-3 px-[4%] mb-2 w-full rounded-lg border border-[#dddddd] lg:py-4 lg:text-base focus:outline-none focus:border-darkBlue"
+                  className="block text-left py-3 px-[4%] mb-2 w-full rounded-lg border border-[#dddddd] dark:border-gray-600 dark:bg-gray-700 dark:text-white lg:py-4 lg:text-base focus:outline-none focus:border-darkBlue dark:focus:border-blue-400"
                 />
                 {errors.name && <span className="text-red-500 text-xs lg:text-sm mb-2 block">{errors.name.message}</span>}
 
-                <label htmlFor="amount" className="text-gray-500 font-medium text-xs block text-left pb-2 lg:text-sm"><FormattedMessage id="add.amount" /></label>
+                <label htmlFor="amount" className="text-gray-500 dark:text-gray-400 font-medium text-xs block text-left pb-2 lg:text-sm"><FormattedMessage id="add.amount" /></label>
                 <input
                   type="number"
                   placeholder={intl.formatMessage({ id: 'add.amount' })}
@@ -124,18 +124,18 @@ const Add = () => {
                     required: intl.formatMessage({ id: 'validation.amountRequired' }),
                     min: { value: 0.01, message: intl.formatMessage({ id: 'validation.amountMin' }) }
                   })}
-                  className="block text-left py-3 px-[4%] mb-2 w-full rounded-lg border border-[#dddddd] lg:py-4 lg:text-base focus:outline-none focus:border-darkBlue"
+                  className="block text-left py-3 px-[4%] mb-2 w-full rounded-lg border border-[#dddddd] dark:border-gray-600 dark:bg-gray-700 dark:text-white lg:py-4 lg:text-base focus:outline-none focus:border-darkBlue dark:focus:border-blue-400"
                 />
                 {errors.amount && <span className="text-red-500 text-xs lg:text-sm mb-2 block">{errors.amount.message}</span>}
 
-                <label htmlFor="date" className="text-gray-500 font-medium text-xs block text-left pb-2 lg:text-sm"><FormattedMessage id="add.date" /></label>
+                <label htmlFor="date" className="text-gray-500 dark:text-gray-400 font-medium text-xs block text-left pb-2 lg:text-sm"><FormattedMessage id="add.date" /></label>
                 <input
                   type="datetime-local"
                   {...register("createdAt")}
-                  className="block text-left py-3 px-[4%] mb-4 w-full rounded-lg border border-[#dddddd] lg:py-4 lg:text-base focus:outline-none focus:border-darkBlue"
+                  className="block text-left py-3 px-[4%] mb-4 w-full rounded-lg border border-[#dddddd] dark:border-gray-600 dark:bg-gray-700 dark:text-white lg:py-4 lg:text-base focus:outline-none focus:border-darkBlue dark:focus:border-blue-400"
                 />
 
-                <label htmlFor="receipt" className="text-gray-500 font-medium text-xs block text-left pb-2 lg:text-sm"><FormattedMessage id="add.receipt" /></label>
+                <label htmlFor="receipt" className="text-gray-500 dark:text-gray-400 font-medium text-xs block text-left pb-2 lg:text-sm"><FormattedMessage id="add.receipt" /></label>
                 {previewImg ? (
                   <div className="relative w-full h-48 lg:h-64 my-2 text-center">
                     <img src={previewImg} alt="Uploaded receipt" className="w-full h-full object-contain rounded-lg border-2 border-[#ddd]" />
@@ -146,7 +146,7 @@ const Add = () => {
                     />
                   </div>
                 ) : (
-                  <label className="flex items-center gap-2 cursor-pointer text-sm text-gray-600 border border-dashed border-gray-500 py-3 px-[4%] w-full rounded-lg mb-4 justify-center hover:border-darkBlue lg:text-base lg:py-4">
+                  <label className="flex items-center gap-2 cursor-pointer text-sm text-gray-600 dark:text-gray-400 border border-dashed border-gray-500 dark:border-gray-600 py-3 px-[4%] w-full rounded-lg mb-4 justify-center hover:border-darkBlue dark:hover:border-blue-400 lg:text-base lg:py-4">
                     <input
                       type="file"
                       accept="image/*"

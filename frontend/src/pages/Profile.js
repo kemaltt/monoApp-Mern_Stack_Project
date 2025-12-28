@@ -12,6 +12,7 @@ import { useLogoutMutation } from "../redux/auth/auth-api";
 import { FormattedMessage } from "react-intl";
 import { useIntl } from "../context/IntlContext";
 import { MdLanguage, MdExpandMore } from "react-icons/md";
+import ThemeToggle from "../components/common/ThemeToggle";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -130,8 +131,19 @@ const Profile = () => {
                   </motion.div>
                 )}
               </div>
+
+              {/* Dark Mode Toggle */}
+              <div className="my-2">
+                <div className="flex items-center justify-between py-4 px-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow lg:py-5 lg:text-lg">
+                  <div className="flex items-center gap-4">
+                    <span className="text-2xl">🌓</span>
+                    <span className="text-gray-700 dark:text-gray-200"><FormattedMessage id="profile.darkMode" /></span>
+                  </div>
+                  <ThemeToggle />
+                </div>
+              </div>
               
-              <p onClick={logOut} className="flex items-center gap-4 py-4 px-4 my-2 bg-red-50 rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer lg:py-5 lg:text-lg">
+              <p onClick={logOut} className="flex items-center gap-4 py-4 px-4 my-2 bg-red-50 dark:bg-red-900/30 rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer lg:py-5 lg:text-lg">
                 <img src={lock} alt="lock" className="w-6 h-6 lg:w-7 lg:h-7" />
                 <span className="text-red-600 font-medium"><FormattedMessage id="profile.logout" /></span>
               </p>

@@ -9,11 +9,11 @@ import { NavLink } from "react-router-dom";
 const Nav = () => {
   return (
     <div className="fixed bottom-2.5 left-2.5 right-2.5 lg:bottom-5 lg:left-auto lg:right-5 lg:w-auto z-[999]">
-      <nav className="bg-white rounded-full shadow-[0_0_30px_rgba(0,0,0,0.2)] p-2 lg:p-3 flex justify-evenly items-center lg:flex-col lg:gap-4 lg:shadow-[0_0_40px_rgba(0,0,0,0.3)] max-w-mobile mx-auto lg:max-w-none">
+      <nav className="bg-white dark:bg-gray-800 rounded-full shadow-[0_0_30px_rgba(0,0,0,0.2)] dark:shadow-gray-900/50 p-2 lg:p-3 flex justify-evenly items-center lg:flex-col lg:gap-4 lg:shadow-[0_0_40px_rgba(0,0,0,0.3)] max-w-mobile mx-auto lg:max-w-none">
         <NavLink 
           to="/home" 
           className={({ isActive }) => 
-            `transition-all duration-500 active:scale-125 ${isActive ? '[&_svg]:fill-darkBlue' : ''}`
+            `transition-all duration-500 active:scale-125 ${isActive ? '[&_svg]:fill-darkBlue dark:[&_svg]:fill-blue-400' : '[&_svg]:fill-gray-600 dark:[&_svg]:fill-gray-400'}`
           }
         >
           <HomeIcon className="h-12 w-6 lg:h-14 lg:w-7" />
@@ -22,7 +22,7 @@ const Nav = () => {
         <NavLink 
           to="/statistic" 
           className={({ isActive }) => 
-            `transition-all duration-500 active:scale-125 ${isActive ? '[&_svg]:fill-darkBlue' : ''}`
+            `transition-all duration-500 active:scale-125 ${isActive ? '[&_svg]:fill-darkBlue dark:[&_svg]:fill-blue-400' : '[&_svg]:fill-gray-600 dark:[&_svg]:fill-gray-400'}`
           }
         >
           <StatistikIcon className="h-12 w-6 lg:h-14 lg:w-7" />
@@ -31,10 +31,10 @@ const Nav = () => {
         <NavLink 
           to="/add" 
           className={({ isActive }) => 
-            `transition-all duration-500 active:scale-125 ${isActive ? '[&_svg]:fill-darkBlue' : ''}`
+            `transition-all duration-500 active:scale-125 ${isActive ? '[&_svg]:fill-darkBlue dark:[&_svg]:fill-blue-400' : ''}`
           }
         >
-          <div className="bg-darkBlue rounded-full w-12 h-12 lg:w-14 lg:h-14 flex items-center justify-center [&_svg]:fill-white">
+          <div className="bg-darkBlue dark:bg-blue-500 rounded-full w-12 h-12 lg:w-14 lg:h-14 flex items-center justify-center [&_svg]:fill-white">
             <PlusIcon />
           </div>
         </NavLink>
@@ -42,7 +42,7 @@ const Nav = () => {
         <NavLink 
           to="/wallet" 
           className={({ isActive }) => 
-            `transition-all duration-500 active:scale-125 ${isActive ? '[&_svg]:fill-darkBlue' : ''}`
+            `transition-all duration-500 active:scale-125 ${isActive ? '[&_svg]:fill-darkBlue dark:[&_svg]:fill-blue-400' : '[&_svg]:fill-gray-600 dark:[&_svg]:fill-gray-400'}`
           }
         >
           <WalletIcon className="h-12 w-6 lg:h-14 lg:w-7" />
@@ -51,7 +51,7 @@ const Nav = () => {
         <NavLink 
           to="/profile" 
           className={({ isActive }) => 
-            `transition-all duration-500 active:scale-125 ${isActive ? '[&_svg]:fill-darkBlue' : ''}`
+            `transition-all duration-500 active:scale-125 ${isActive ? '[&_svg]:fill-darkBlue dark:[&_svg]:fill-blue-400' : '[&_svg]:fill-gray-600 dark:[&_svg]:fill-gray-400'}`
           }
         >
           <ProfilIcon className="h-12 w-6 lg:h-14 lg:w-7" />

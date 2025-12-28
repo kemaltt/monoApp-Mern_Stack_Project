@@ -47,7 +47,7 @@ const Home = () => {
   return (
 
     <>
-      <div className="min-h-screen bg-white lg:flex lg:justify-center lg:items-start lg:pt-8 lg:pr-20">
+      <div className="min-h-screen bg-white dark:bg-gray-900 lg:flex lg:justify-center lg:items-start lg:pt-8 lg:pr-20">
         <div className="lg:max-w-4xl lg:w-full">
           {/* Header with Gradient */}
           <div className="bg-gradient-blue rounded-b-[20px] h-[25vh] lg:h-[30vh] lg:rounded-[30px]">
@@ -121,7 +121,7 @@ const Home = () => {
             <>
               {/* Transaction Header */}
               <div className="px-[5%] mt-16 lg:mt-20 flex justify-between items-center lg:px-8">
-                <h6 className="text-left text-base lg:text-xl font-semibold">
+                <h6 className="text-left text-base lg:text-xl font-semibold text-gray-900 dark:text-white">
                   <FormattedMessage id="home.transactionsHistory" />
                 </h6>
                 <Link
@@ -133,7 +133,7 @@ const Home = () => {
               </div>
 
               {/* Transactions List */}
-              <div className="overflow-auto h-[50vh] lg:h-[45vh] px-[5%] pb-24 lg:pb-8 lg:px-8 bg-white scrollbar-hide">
+              <div className="overflow-auto h-[50vh] lg:h-[45vh] px-[5%] pb-24 lg:pb-8 lg:px-8 bg-white dark:bg-gray-900 scrollbar-hide">
                 <div>
                   {transactions.transactions?.map((ele, index) => (
                     <Link
@@ -142,7 +142,7 @@ const Home = () => {
                       className="no-underline"
                     >
                       <motion.div
-                        className="flex justify-between items-center my-4 lg:my-5 lg:p-3 lg:rounded-lg lg:hover:bg-gray-50 transition-colors"
+                        className="flex justify-between items-center my-4 lg:my-5 lg:p-3 lg:rounded-lg lg:hover:bg-gray-50 dark:lg:hover:bg-gray-800 transition-colors"
                         {...listItemAnimation(index)}
                       >
                         <div className="flex items-center">
@@ -159,10 +159,10 @@ const Home = () => {
                             </h3>
                           </div>
                           <div>
-                            <h5 className="mb-0.5 text-left text-black lg:text-lg font-medium">
+                            <h5 className="mb-0.5 text-left text-black dark:text-white lg:text-lg font-medium">
                               {ele.name}
                             </h5>
-                            <p className="m-0 text-left text-gray-500 text-sm lg:text-base">
+                            <p className="m-0 text-left text-gray-500 dark:text-gray-400 text-sm lg:text-base">
                               {new Date(ele.createdAt).toLocaleDateString(
                                 "de-DE",
                                 {
