@@ -8,6 +8,7 @@ const { refreshUserToken } = require("../controllers/user-controller/refresh-use
 const { loginUser } = require("../controllers/user-controller/login-user");
 const { registerUser } = require("../controllers/user-controller/register-user");
 const { verifyEmail } = require("../controllers/user-controller/verify-email");
+const { resendVerification } = require("../controllers/user-controller/resend-verification");
 const { showAllUser } = require("../controllers/user-controller/show-all-users");
 const { uploadToFirebase, upload } = require("../services/file-upload.service");
 const UserModel = require("../models/UserModel");
@@ -129,6 +130,23 @@ userRouter.get("/verify-email", async (req, res) => {
   } catch (error) {
     res.status(400).json({
       message: error.message || "Email verification failed"
+    });
+  }
+});
+
+userRouter.post("/resend-verification-email", async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    if (!email) {
+      throw new Error("Email is required");
+    }
+
+    const result = await resendVerification({ email });
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(400).json({
+      message: error.message || "Failed to resend verification email"
     });
   }
 });
