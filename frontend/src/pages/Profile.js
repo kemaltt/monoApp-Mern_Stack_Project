@@ -12,6 +12,7 @@ import { useLogoutMutation } from "../redux/auth/auth-api";
 import { FormattedMessage } from "react-intl";
 import { useIntl } from "../context/IntlContext";
 import { MdLanguage, MdExpandMore } from "react-icons/md";
+import ThemeToggle from "../components/common/ThemeToggle";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -45,7 +46,7 @@ const Profile = () => {
 
   return (
     transactions && (
-      <div>
+      <div className="dark:bg-gray-900 min-h-screen">
         <div className="min-h-screen lg:flex lg:justify-center lg:items-start lg:pt-8 lg:pr-20">
           <div className="lg:max-w-4xl lg:w-full">
             <div className="bg-gradient-blue rounded-b-[20px] h-[25vh] lg:h-[30vh] lg:rounded-[30px]">
@@ -116,13 +117,13 @@ const Profile = () => {
                           switchLanguage(lang.code);
                           setIsLangOpen(false);
                         }}
-                        className={`w-full px-4 py-3 text-left hover:bg-gray-50 transition-colors flex items-center gap-3 ${
-                          locale === lang.code ? 'bg-blue-50 border-l-4 border-darkBlue' : ''
+                        className={`w-full px-4 py-3 text-left hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex items-center gap-3 ${
+                          locale === lang.code ? 'bg-blue-50 dark:bg-gray-700 border-l-4 border-darkBlue' : ''
                         }`}
                       >
                         <span className="text-xl">{lang.flag}</span>
                         <span className={`text-sm ${
-                          locale === lang.code ? 'text-darkBlue font-semibold' : 'text-gray-700'
+                          locale === lang.code ? 'text-darkBlue font-semibold' : 'text-gray-700 dark:text-gray-200'
                         }`}>{lang.label}</span>
                         {locale === lang.code && <span className="ml-auto text-darkBlue">✓</span>}
                       </button>

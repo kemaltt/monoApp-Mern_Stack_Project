@@ -77,6 +77,7 @@
   "profile.editProfile": "Edit Profile",
   "profile.saveProfile": "Save Profile",
   "profile.language": "Language",
+  "profile.darkMode": "Dark Mode",
   "add.addIncome": "Add Income",
   "add.addExpense": "Add Expense",
   "add.editIncome": "Edit Income",
@@ -102,5 +103,11 @@
   "onboarding.getStarted": "Get Started",
   "messages.accountCreated": "Account created successfully",
   "messages.updateSuccess": "Successfully updated",
-  "messages.deleteSuccess": "Successfully deleted"
+  "messages.deleteSuccess": "Successfully deleted",
+  "emptyState.transactions.title": "No Transactions",
+  "emptyState.transactions.message": "You don't have any transactions yet. Start tracking your income and expenses now!",
+  "emptyState.transactions.action": "Add First Transaction",
+  "emptyState.wallet.title": "Wallet is Empty",
+  "emptyState.wallet.message": "Your wallet is waiting for its first transaction. Add income or expenses to get started.",
+  "emptyState.wallet.action": "Add Transaction"
 }

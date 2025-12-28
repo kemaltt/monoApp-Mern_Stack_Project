@@ -8,9 +8,10 @@ import Nav from "../components/common/Nav";
 import { motion } from "framer-motion";
 import { useGetTransactionsMutation } from "../redux/transaction/transaction-api";
 import { useSelector } from "react-redux";
-import Loading from "../components/common/Loading";
+import SkeletonLoader from "../components/common/SkeletonLoader";
 import { cardAnimation, listItemAnimation } from "../utils/animationHelpers";
 import { FormattedMessage } from "react-intl";
+import EmptyState from "../components/common/EmptyState";
 
 const Home = () => {
 
@@ -109,8 +110,14 @@ const Home = () => {
           </div>
 
           {isLoading ? (
-            <Loading />
-          ) : (
+            <>
+              <SkeletonLoader type="card" />
+              <div className="px-[5%] mt-16 lg:mt-20 lg:px-8">
+                <div className="h-6 bg-gray-200 rounded w-48 mb-4 animate-pulse"></div>
+              </div>
+              <SkeletonLoader type="transaction" count={6} />
+            </>
+          ) : transactions && Array.isArray(transactions.transactions) && transactions.transactions.length > 0 ? (
             <>
               {/* Transaction Header */}
               <div className="px-[5%] mt-16 lg:mt-20 flex justify-between items-center lg:px-8">
@@ -184,6 +191,10 @@ const Home = () => {
                 </div>
               </div>
             </>
+          ) : (
+            <div className="mt-16 lg:mt-20">
+              <EmptyState type="transactions" />
+            </div>
           )}
         </div>
       </div>

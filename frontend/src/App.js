@@ -14,6 +14,7 @@ import EditIncome from "./components/forms/EditIncome";
 import AuthRequired from "./components/common/AuthRequired";
 import { useAppContext } from "./context/AppContext";
 import { IntlContextProvider } from "./context/IntlContext";
+import { ThemeProvider } from "./context/ThemeContext";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "bootstrap/dist/css/bootstrap.css";
@@ -25,8 +26,9 @@ function App() {
   const { token, saveToken } = appctx;
 
   return (
-    <IntlContextProvider>
-      <div className="min-h-screen bg-white">
+    <ThemeProvider>
+      <IntlContextProvider>
+        <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
         <ToastContainer
           position="top-right"
           autoClose={4000}
@@ -124,8 +126,9 @@ function App() {
           />
         </Routes>
       </BrowserRouter>
-      </div>
-    </IntlContextProvider>
+        </div>
+      </IntlContextProvider>
+    </ThemeProvider>
   );
 }
 

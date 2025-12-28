@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useGetTransactionsMutation } from "../redux/transaction/transaction-api";
 import { useSelector } from "react-redux";
-import Loading from "../components/common/Loading";
+import SkeletonLoader from "../components/common/SkeletonLoader";
 import { FormattedMessage, useIntl } from "react-intl";
 // import TopMobileBar from "../components/TopMobileBar";
 
@@ -173,18 +173,41 @@ const Statistic = () => {
               </div>
             </div>
 
-            {/* Chart */}
-            <div className="px-[5%] py-6 lg:px-8 lg:py-8">
-              <div className="bg-white rounded-lg shadow-md p-4 lg:p-6">
-                <BarChart chartData={dataWeek} />
-              </div>
-            </div>
+            {isLoading ? (
+              <>
+                {/* Skeleton for Chart */}
+                <div className="px-[5%] py-6 lg:px-8 lg:py-8">
+                  <div className="bg-white rounded-lg shadow-md p-4 lg:p-6 animate-pulse">
+                    <div className="h-64 bg-gray-100 rounded-lg mb-4 lg:h-80"></div>
+                  </div>
+                </div>
+                
+                {/* Skeleton for Filters */}
+                <div className="px-[5%] lg:px-8">
+                  <div className="flex justify-between items-center mb-4 animate-pulse">
+                    <div className="h-10 bg-gray-200 rounded w-24"></div>
+                    <div className="flex gap-2">
+                      <div className="h-10 bg-gray-200 rounded w-32"></div>
+                      <div className="h-10 bg-gray-200 rounded w-10"></div>
+                    </div>
+                  </div>
+                  <div className="h-5 bg-gray-200 rounded w-40 mb-4"></div>
+                </div>
+                
+                {/* Skeleton for Transactions */}
+                <SkeletonLoader type="transaction" count={6} />
+              </>
+            ) : (
+              <>
+                {/* Chart */}
+                <div className="px-[5%] py-6 lg:px-8 lg:py-8">
+                  <div className="bg-white rounded-lg shadow-md p-4 lg:p-6">
+                    <BarChart chartData={dataWeek} />
+                  </div>
+                </div>
 
-            {isLoading 
-            ? <Loading />
-            : <>
-              {/* Transaction Header with Filters */}
-              <div className="px-[5%] py-2 flex justify-between items-center lg:px-8">
+                {/* Transaction Header with Filters */}
+                <div className="px-[5%] py-2 flex justify-between items-center lg:px-8">
                 <h6 className="m-0 text-base lg:text-xl font-semibold"><FormattedMessage id="statistics.topSpending" /></h6>
                 <div className="flex gap-2">
                   <form action="">
@@ -253,8 +276,8 @@ const Statistic = () => {
                   ))}
                 </div>
               </div>
-            </>
-            }
+              </>
+            )}
           </div>
         </div>
         <Nav />

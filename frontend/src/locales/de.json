@@ -79,6 +79,7 @@
   "profile.editProfile": "Profil bearbeiten",
   "profile.saveProfile": "Profil speichern",
   "profile.language": "Sprache",
+  "profile.darkMode": "Dunkelmodus",
   "add.addIncome": "Einkommen hinzufügen",
   "add.addExpense": "Ausgabe hinzufügen",
   "add.editIncome": "Einkommen bearbeiten",
@@ -104,5 +105,11 @@
   "onboarding.getStarted": "Jetzt starten",
   "messages.accountCreated": "Konto erfolgreich erstellt",
   "messages.updateSuccess": "Erfolgreich aktualisiert",
-  "messages.deleteSuccess": "Erfolgreich gelöscht"
+  "messages.deleteSuccess": "Erfolgreich gelöscht",
+  "emptyState.transactions.title": "Keine Transaktionen",
+  "emptyState.transactions.message": "Sie haben noch keine Transaktionen. Beginnen Sie jetzt, Ihre Einnahmen und Ausgaben zu verfolgen!",
+  "emptyState.transactions.action": "Erste Transaktion hinzufügen",
+  "emptyState.wallet.title": "Geldbörse ist leer",
+  "emptyState.wallet.message": "Ihre Geldbörse wartet auf die erste Transaktion. Fügen Sie Einkommen oder Ausgaben hinzu, um zu beginnen.",
+  "emptyState.wallet.action": "Transaktion hinzufügen"
 }

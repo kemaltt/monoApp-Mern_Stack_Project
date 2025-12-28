@@ -8,8 +8,9 @@ import { motion } from "framer-motion";
 import TopMobileBar from "../components/common/TopMobileBar";
 import { useSelector } from "react-redux";
 import { useGetTransactionsMutation } from "../redux/transaction/transaction-api";
-import Loading from "../components/common/Loading";
+import SkeletonLoader from "../components/common/SkeletonLoader";
 import { FormattedMessage } from "react-intl";
+import EmptyState from "../components/common/EmptyState";
 
 const Wallet = () => {
 
@@ -113,13 +114,11 @@ const Wallet = () => {
 
             {/* Transactions List */}
             {isLoading ? (
-              <Loading />
-            ) : (
+              <SkeletonLoader type="balance" count={6} />
+            ) : transactions && Array.isArray(transactions.transactions) && transactions.transactions.length > 0 ? (
               <div className="overflow-auto h-[40vh] lg:h-[35vh] px-[3%] mt-2 bg-white rounded-[30px] pb-4 lg:px-8 scrollbar-hide">
                 <div>
-                  {transactions &&
-                    Array.isArray(transactions.transactions) &&
-                    transactions.transactions.map((ele, index) => (
+                  {transactions.transactions.map((ele, index) => (
                       <Link
                         key={index}
                         to={`/transaction/detail/${ele._id}`}
@@ -173,6 +172,8 @@ const Wallet = () => {
                     ))}
                 </div>
               </div>
+            ) : (
+              <EmptyState type="wallet" />
             )}
           </motion.div>
         </div>

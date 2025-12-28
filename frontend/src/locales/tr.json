@@ -77,6 +77,7 @@
   "profile.editProfile": "Profili Düzenle",
   "profile.saveProfile": "Profili Kaydet",
   "profile.language": "Dil",
+  "profile.darkMode": "Karanlık Mod",
   "add.addIncome": "Gelir Ekle",
   "add.addExpense": "Gider Ekle",
   "add.editIncome": "Geliri Düzenle",
@@ -102,5 +103,11 @@
   "onboarding.getStarted": "Başlayalım",
   "messages.accountCreated": "Hesap başarıyla oluşturuldu",
   "messages.updateSuccess": "Başarıyla güncellendi",
-  "messages.deleteSuccess": "Başarıyla silindi"
+  "messages.deleteSuccess": "Başarıyla silindi",
+  "emptyState.transactions.title": "İşlem Yok",
+  "emptyState.transactions.message": "Henüz hiç işleminiz yok. Gelir ve giderlerinizi takip etmeye şimdi başlayın!",
+  "emptyState.transactions.action": "İlk İşlemi Ekle",
+  "emptyState.wallet.title": "Cüzdan Boş",
+  "emptyState.wallet.message": "Cüzdanınız ilk işlemini bekliyor. Başlamak için gelir veya gider ekleyin.",
+  "emptyState.wallet.action": "İşlem Ekle"
 }
