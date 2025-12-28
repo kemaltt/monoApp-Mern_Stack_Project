@@ -6,8 +6,10 @@ import { useForm } from "react-hook-form";
 import { useRegisterMutation } from "../redux/auth/auth-api";
 import { getErrorMessage } from "../utils/errorHandler";
 import { formAnimation } from "../utils/animationHelpers";
+import { FormattedMessage, useIntl } from "react-intl";
 
 const SignUp = () => {
+  const intl = useIntl();
   const { register, handleSubmit, setValue, formState: { errors } } = useForm();
   const [registerMutation, { isLoading }] = useRegisterMutation();
   const [previewImg, setPreviewImg] = useState(null);
@@ -47,7 +49,7 @@ const SignUp = () => {
     if (response.error) {
       setErrorMessage(getErrorMessage(response));
     } else {
-      setErrorMessage(<p className="text-success">Account created successfully</p>);
+      setErrorMessage(<p className="text-success"><FormattedMessage id="messages.accountCreated" /></p>);
       setTimeout(() => {
         navigate("/login");
       }, 500);
@@ -58,7 +60,7 @@ const SignUp = () => {
     <div className="min-h-screen bg-cover bg-no-repeat bg-[position:0_-30vh] px-[8%] lg:flex lg:items-center lg:justify-center lg:px-4"
          style={{ backgroundImage: "url('../assets/images/lightBlueBackground.png')" }}>
       <div className="lg:max-w-2xl lg:w-full">
-        <h1 className="pt-8 pb-16 text-center lg:text-5xl">Sign Up</h1>
+        <h1 className="pt-8 pb-16 text-center lg:text-5xl"><FormattedMessage id="auth.signup" /></h1>
         
         <motion.form
           {...formAnimation}
@@ -67,53 +69,53 @@ const SignUp = () => {
         >
           <div className="px-[5%] pb-4 lg:px-[8%]">
             <label htmlFor="name" className="text-gray-500 font-medium text-xs block text-left pb-2 lg:text-sm">
-              NAME
+              <FormattedMessage id="auth.name" />
             </label>
             <input
               type="text"
               {...register("name", 
-                { required: "Name is required" ,
+                { required: intl.formatMessage({ id: 'validation.nameRequired' }),
                   pattern: {
                     value: /^(?=)(?=).{2,15}$/,
-                    message: "Invalid name",
+                    message: intl.formatMessage({ id: 'validation.nameInvalid' }),
                   },
                 })}
-              placeholder="Full Name"
+              placeholder={intl.formatMessage({ id: 'auth.fullName' })}
               className="block text-left py-3 px-[4%] mb-2 w-full rounded-lg border border-[#dddddd] lg:py-4 lg:text-base focus:outline-none focus:border-darkBlue"
             />
             {errors.name && <span className="text-red-500 text-xs">{errors.name.message}</span>}
 
             <label htmlFor="email" className="text-gray-500 font-medium text-xs block text-left pb-2 mt-2 lg:text-sm">
-              EMAIL
+              <FormattedMessage id="auth.email" />
             </label>
             <input
               type="email"
               {...register("email", {
-                required: "Email is required",
+                required: intl.formatMessage({ id: 'validation.emailRequired' }),
                 pattern: {
                   value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-                  message: "Invalid email address",
+                  message: intl.formatMessage({ id: 'validation.emailInvalid' }),
                 },
               })}
-              placeholder="Email"
+              placeholder={intl.formatMessage({ id: 'auth.email' })}
               className="block text-left py-3 px-[4%] mb-2 w-full rounded-lg border border-[#dddddd] lg:py-4 lg:text-base focus:outline-none focus:border-darkBlue"
             />
             {errors.email && <span className="text-red-500 text-xs">{errors.email.message}</span>}
 
             <label htmlFor="password" className="text-gray-500 font-medium text-xs block text-left pb-2 mt-2 lg:text-sm">
-              PASSWORD
+              <FormattedMessage id="auth.password" />
             </label>
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
                 {...register("password", {
-                  required: "Password is required",
+                  required: intl.formatMessage({ id: 'validation.passwordRequired' }),
                   minLength: {
                     value: 8,
-                    message: "Password must be at least 8 characters",
+                    message: intl.formatMessage({ id: 'validation.passwordMinLength' }),
                   },
                 })}
-                placeholder="Password"
+                placeholder={intl.formatMessage({ id: 'auth.password' })}
                 className="block text-left py-3 px-[4%] pr-12 mb-2 w-full rounded-lg border border-[#dddddd] lg:py-4 lg:text-base focus:outline-none focus:border-darkBlue"
               />
               <button
@@ -127,7 +129,7 @@ const SignUp = () => {
             {errors.password && <span className="text-red-500 text-xs">{errors.password.message}</span>}
 
             <label htmlFor="picture" className="text-gray-500 font-medium text-xs block text-left pb-2 mt-4 lg:text-sm">
-              PROFILE PICTURE
+              <FormattedMessage id="auth.profilePicture" />
             </label>
             {previewImg ? (
               <div className="relative w-[150px] h-[150px] my-2 mx-auto text-center">
@@ -146,7 +148,7 @@ const SignUp = () => {
                   onChange={handleImageChange}
                   className="hidden"
                 />
-                <BiImageAdd size={24} /> Add Profile Photo
+                <BiImageAdd size={24} /> <FormattedMessage id="auth.addProfilePhoto" />
               </label>
             )}
 
@@ -155,7 +157,7 @@ const SignUp = () => {
               disabled={isLoading}
               className="bg-gradient-blue border-none py-4 rounded-[50px] mb-4 text-white text-lg font-semibold w-full lg:text-xl lg:py-5 hover:bg-gradient-blue-reverse transition-all duration-300"
             >
-              Register
+              <FormattedMessage id="auth.register" />
               {isLoading && (
                 <span className="spinner-border spinner-border-sm mx-1" role="status"></span>
               )}
@@ -171,9 +173,9 @@ const SignUp = () => {
         </motion.form>
         
         <p className="py-4 px-[2%] text-xs m-0 lg:text-sm lg:text-center">
-          Already Have An Account?{" "}
+          <FormattedMessage id="auth.haveAccount" />{" "}
           <Link to="/login" className="no-underline text-darkBlue hover:underline">
-            Log In
+            <FormattedMessage id="auth.login" />
           </Link>
         </p>
       </div>

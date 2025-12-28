@@ -12,8 +12,10 @@ import {
   useGetTransactionByIdMutation,
   useUpdateTransactionByIdMutation,
 } from "../../redux/transaction/transaction-api";
+import { FormattedMessage, useIntl } from "react-intl";
 
 const EditExpense = () => {
+  const intl = useIntl();
   const { id } = useParams();
 
   const [deleteFromTransaction] = useDeleteFromTransactionMutation();
@@ -106,7 +108,7 @@ const EditExpense = () => {
                 <Delete />
               </div>
             </div>
-            <h4 className="text-white text-center text-lg lg:text-2xl font-semibold mt-4">Edit Expense</h4>
+            <h4 className="text-white text-center text-lg lg:text-2xl font-semibold mt-4"><FormattedMessage id="add.editExpense" /></h4>
           </div>
 
           <motion.form
@@ -124,31 +126,31 @@ const EditExpense = () => {
             className="bg-white rounded-[20px] shadow-[5px_5px_5px_5px_rgba(0,0,0,0.1)] mx-[5%] -mt-6 lg:mx-8 lg:-mt-8"
           >
             <div className="px-[5%] py-8 lg:px-[8%] lg:py-10">
-              <label htmlFor="name" className="text-gray-500 font-medium text-xs block text-left pb-2 lg:text-sm">Name</label>
+              <label htmlFor="name" className="text-gray-500 font-medium text-xs block text-left pb-2 lg:text-sm"><FormattedMessage id="add.name" /></label>
               <input
                 type="text"
                 name="name"
                 id="name"
-                placeholder="Name"
+                placeholder={intl.formatMessage({ id: 'add.name' })}
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 className="block text-left py-3 px-[4%] mb-4 w-full rounded-lg border border-[#dddddd] lg:py-4 lg:text-base focus:outline-none focus:border-darkBlue"
               />
 
-              <label htmlFor="amount" className="text-gray-500 font-medium text-xs block text-left pb-2 lg:text-sm">Amount</label>
+              <label htmlFor="amount" className="text-gray-500 font-medium text-xs block text-left pb-2 lg:text-sm"><FormattedMessage id="add.amount" /></label>
               <input
                 type="number"
                 name="amount"
                 id="amount"
-                placeholder="Amount"
+                placeholder={intl.formatMessage({ id: 'add.amount' })}
                 required
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 className="block text-left py-3 px-[4%] mb-4 w-full rounded-lg border border-[#dddddd] lg:py-4 lg:text-base focus:outline-none focus:border-darkBlue"
               />
 
-              <label htmlFor="date" className="text-gray-500 font-medium text-xs block text-left pb-2 lg:text-sm">Date</label>
+              <label htmlFor="date" className="text-gray-500 font-medium text-xs block text-left pb-2 lg:text-sm"><FormattedMessage id="add.date" /></label>
               <input
                 type="datetime-local"
                 name="date"
@@ -159,7 +161,7 @@ const EditExpense = () => {
                 className="block text-left py-3 px-[4%] mb-4 w-full rounded-lg border border-[#dddddd] lg:py-4 lg:text-base focus:outline-none focus:border-darkBlue"
               />
 
-              <label htmlFor="receipt" className="text-gray-500 font-medium text-xs block text-left pb-2 lg:text-sm">Receipt</label>
+              <label htmlFor="receipt" className="text-gray-500 font-medium text-xs block text-left pb-2 lg:text-sm"><FormattedMessage id="add.receipt" /></label>
               {previewImg ? (
                 <div className="relative w-full h-48 lg:h-64 my-2 text-center">
                   <img src={previewImg} alt="Uploaded receipt" className="w-full h-full object-contain rounded-lg border-2 border-[#ddd]" />
@@ -177,7 +179,7 @@ const EditExpense = () => {
                     onChange={handleImageChange}
                     className="hidden"
                   />
-                  <BiImageAdd size={24} /> Add Receipt
+                  <BiImageAdd size={24} /> <FormattedMessage id="add.addReceipt" />
                 </label>
               )}
 
@@ -186,7 +188,7 @@ const EditExpense = () => {
                 disabled={isLoading}
                 className="bg-bgRed border-none py-4 rounded-[50px] mb-2 text-white text-lg font-semibold w-full lg:text-xl lg:py-5 hover:opacity-90 transition-all duration-300 disabled:opacity-50"
               >
-                Save
+                <FormattedMessage id="common.save" />
                 {isLoading && (
                   <span
                     className="spinner-border spinner-border-sm mx-1"

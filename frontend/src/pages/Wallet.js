@@ -9,6 +9,7 @@ import TopMobileBar from "../components/common/TopMobileBar";
 import { useSelector } from "react-redux";
 import { useGetTransactionsMutation } from "../redux/transaction/transaction-api";
 import Loading from "../components/common/Loading";
+import { FormattedMessage } from "react-intl";
 
 const Wallet = () => {
 
@@ -48,7 +49,7 @@ const Wallet = () => {
           <div className="bg-gradient-blue rounded-b-[20px] h-[25vh] lg:h-[30vh] lg:rounded-[30px]">
             <TopMobileBar />
             <div className="text-center pt-10 pb-4 lg:pt-16 lg:pb-8">
-              <h4 className="text-white font-semibold text-lg lg:text-2xl">Wallet</h4>
+              <h4 className="text-white font-semibold text-lg lg:text-2xl"><FormattedMessage id="nav.wallet" /></h4>
             </div>
           </div>
 
@@ -67,7 +68,7 @@ const Wallet = () => {
           >
             {/* Total Balance */}
             <section className="pt-6 lg:pt-10">
-              <p className="py-6 m-0 text-gray-500 lg:text-lg">Total Balance</p>
+              <p className="py-6 m-0 text-gray-500 lg:text-lg"><FormattedMessage id="home.totalBalance" /></p>
               <h2 className="pb-4 text-black text-3xl lg:text-5xl font-bold">
                 ${transactions && totalBalance}
               </h2>
@@ -78,7 +79,7 @@ const Wallet = () => {
               <div className="text-center">
                 <Link to="/add" className="no-underline text-black hover:text-darkBlue">
                   <img src={Add} alt="add" className="mx-auto mb-2 w-12 lg:w-16" />
-                  <figcaption>Add</figcaption>
+                  <figcaption><FormattedMessage id="wallet.add" /></figcaption>
                 </Link>
               </div>
               <div className="text-center">
@@ -89,7 +90,7 @@ const Wallet = () => {
                   className="no-underline text-black hover:text-darkBlue"
                 >
                   <img src={Pay} alt="pay" className="mx-auto mb-2 w-12 lg:w-16" />
-                  <figcaption>Pay</figcaption>
+                  <figcaption><FormattedMessage id="wallet.pay" /></figcaption>
                 </a>
               </div>
               <div className="text-center">
@@ -100,14 +101,14 @@ const Wallet = () => {
                   className="no-underline text-black hover:text-darkBlue"
                 >
                   <img src={Send} alt="send" className="mx-auto mb-2 w-12 lg:w-16" />
-                  <figcaption>Send</figcaption>
+                  <figcaption><FormattedMessage id="wallet.send" /></figcaption>
                 </a>
               </div>
             </div>
 
             {/* Transaction Header */}
             <div className="px-[5%] py-2 text-left lg:px-8">
-              <h6 className="m-0 text-base lg:text-xl font-semibold">Transactions History</h6>
+              <h6 className="m-0 text-base lg:text-xl font-semibold"><FormattedMessage id="home.transactionsHistory" /></h6>
             </div>
 
             {/* Transactions List */}

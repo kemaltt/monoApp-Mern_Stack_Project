@@ -13,6 +13,7 @@ import EditExpense from "./components/forms/EditExpense";
 import EditIncome from "./components/forms/EditIncome";
 import AuthRequired from "./components/common/AuthRequired";
 import { useAppContext } from "./context/AppContext";
+import { IntlContextProvider } from "./context/IntlContext";
 import "bootstrap/dist/css/bootstrap.css";
 import EditProfile from "./pages/EditProfile";
 
@@ -22,8 +23,9 @@ function App() {
   const { token, saveToken } = appctx;
 
   return (
-    <div className="min-h-screen bg-white">
-      <BrowserRouter>
+    <IntlContextProvider>
+      <div className="min-h-screen bg-white">
+        <BrowserRouter>
 
         <Routes>
           <Route
@@ -108,7 +110,8 @@ function App() {
           />
         </Routes>
       </BrowserRouter>
-    </div>
+      </div>
+    </IntlContextProvider>
   );
 }
 

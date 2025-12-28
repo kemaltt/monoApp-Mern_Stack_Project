@@ -9,8 +9,10 @@ import { motion } from "framer-motion";
 import TopMobileBar from "../components/common/TopMobileBar";
 import { useAddToTransactionMutation } from "../redux/transaction/transaction-api";
 import { useForm } from "react-hook-form";
+import { FormattedMessage, useIntl } from "react-intl";
 
 const Add = () => {
+  const intl = useIntl();
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [addToTransaction, { isLoading }] = useAddToTransactionMutation();
 
@@ -77,13 +79,13 @@ const Add = () => {
                 onClick={() => setIncome(true)}
                 className={`px-6 py-2 lg:px-8 lg:py-3 rounded-full text-sm lg:text-base font-medium transition-all ${income ? 'bg-white text-bgGreen' : 'bg-white/20 text-white'}`}
               >
-                Add Income
+                <FormattedMessage id="add.addIncome" />
               </button>
               <button 
                 onClick={() => setIncome(false)}
                 className={`px-6 py-2 lg:px-8 lg:py-3 rounded-full text-sm lg:text-base font-medium transition-all ${!income ? 'bg-white text-bgRed' : 'bg-white/20 text-white'}`}
               >
-                Add Expense
+                <FormattedMessage id="add.addExpense" />
               </button>
             </div>
           </div>
@@ -95,7 +97,7 @@ const Add = () => {
               </Link>
 
               <h4 className={`text-lg lg:text-2xl font-semibold m-0 ${income ? 'text-bgGreen' : 'text-bgRed'}`}>
-                {income ? "Add Income" : "Add Expense"}
+                <FormattedMessage id={income ? "add.addIncome" : "add.addExpense"} />
               </h4>
               <img src={dots} alt="dots" className="w-6 h-6 lg:w-8 lg:h-8" />
             </div>
@@ -105,35 +107,35 @@ const Add = () => {
               className="bg-white rounded-[20px] shadow-[5px_5px_5px_5px_rgba(0,0,0,0.1)] mx-[5%] lg:mx-8 mt-4"
             >
               <div className="px-[5%] py-8 lg:px-[8%] lg:py-10">
-                <label className="text-gray-500 font-medium text-xs block text-left pb-2 lg:text-sm">NAME</label>
+                <label className="text-gray-500 font-medium text-xs block text-left pb-2 lg:text-sm"><FormattedMessage id="add.name" /></label>
                 <input
                   type="text"
-                  placeholder="Name"
-                  {...register("name", { required: "Name is required" })}
+                  placeholder={intl.formatMessage({ id: 'add.name' })}
+                  {...register("name", { required: intl.formatMessage({ id: 'validation.nameRequired' }) })}
                   className="block text-left py-3 px-[4%] mb-2 w-full rounded-lg border border-[#dddddd] lg:py-4 lg:text-base focus:outline-none focus:border-darkBlue"
                 />
                 {errors.name && <span className="text-red-500 text-xs lg:text-sm mb-2 block">{errors.name.message}</span>}
 
-                <label htmlFor="amount" className="text-gray-500 font-medium text-xs block text-left pb-2 lg:text-sm">AMOUNT</label>
+                <label htmlFor="amount" className="text-gray-500 font-medium text-xs block text-left pb-2 lg:text-sm"><FormattedMessage id="add.amount" /></label>
                 <input
                   type="number"
-                  placeholder="Amount"
+                  placeholder={intl.formatMessage({ id: 'add.amount' })}
                   {...register("amount", { 
-                    required: "Amount is required",
-                    min: { value: 0.01, message: "Amount must be greater than 0" }
+                    required: intl.formatMessage({ id: 'validation.amountRequired' }),
+                    min: { value: 0.01, message: intl.formatMessage({ id: 'validation.amountMin' }) }
                   })}
                   className="block text-left py-3 px-[4%] mb-2 w-full rounded-lg border border-[#dddddd] lg:py-4 lg:text-base focus:outline-none focus:border-darkBlue"
                 />
                 {errors.amount && <span className="text-red-500 text-xs lg:text-sm mb-2 block">{errors.amount.message}</span>}
 
-                <label htmlFor="date" className="text-gray-500 font-medium text-xs block text-left pb-2 lg:text-sm">DATE</label>
+                <label htmlFor="date" className="text-gray-500 font-medium text-xs block text-left pb-2 lg:text-sm"><FormattedMessage id="add.date" /></label>
                 <input
                   type="datetime-local"
                   {...register("createdAt")}
                   className="block text-left py-3 px-[4%] mb-4 w-full rounded-lg border border-[#dddddd] lg:py-4 lg:text-base focus:outline-none focus:border-darkBlue"
                 />
 
-                <label htmlFor="receipt" className="text-gray-500 font-medium text-xs block text-left pb-2 lg:text-sm">RECEIPT</label>
+                <label htmlFor="receipt" className="text-gray-500 font-medium text-xs block text-left pb-2 lg:text-sm"><FormattedMessage id="add.receipt" /></label>
                 {previewImg ? (
                   <div className="relative w-full h-48 lg:h-64 my-2 text-center">
                     <img src={previewImg} alt="Uploaded receipt" className="w-full h-full object-contain rounded-lg border-2 border-[#ddd]" />
@@ -151,7 +153,7 @@ const Add = () => {
                       onChange={handleImageChange}
                       className="hidden"
                     />
-                    <BiImageAdd size={24} /> Add Receipt
+                    <BiImageAdd size={24} /> <FormattedMessage id="add.addReceipt" />
                   </label>
                 )}
 
@@ -161,7 +163,7 @@ const Add = () => {
                   type="submit"
                   disabled={isLoading}
                 >
-                  Save
+                  <FormattedMessage id="common.save" />
                   {isLoading && (
                     <span
                       className="spinner-border spinner-border-sm mx-1"

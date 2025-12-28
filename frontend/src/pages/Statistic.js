@@ -8,10 +8,12 @@ import { motion } from "framer-motion";
 import { useGetTransactionsMutation } from "../redux/transaction/transaction-api";
 import { useSelector } from "react-redux";
 import Loading from "../components/common/Loading";
+import { FormattedMessage, useIntl } from "react-intl";
 // import TopMobileBar from "../components/TopMobileBar";
 
 const Statistic = () => {
 
+  const intl = useIntl();
   const [getTransactions, { isLoading }] = useGetTransactionsMutation();
   const { transactions } = useSelector((state) => state.transactions);
 
@@ -72,17 +74,17 @@ const Statistic = () => {
     labels,
     datasets: [
       createDataset(
-        "Income 7 Days",
+        intl.formatMessage({ id: 'statistics.income7Days' }),
         last7DaysData.map((day) => day.income),
         "#00B495"
       ),
       createDataset(
-        "Expense 7 Days",
+        intl.formatMessage({ id: 'statistics.expense7Days' }),
         last7DaysData.map((day) => day.expenses),
         "#E4797F"
       ),
       createDataset(
-        "Total 7 Days",
+        intl.formatMessage({ id: 'statistics.total7Days' }),
         last7DaysData.map((day) => day.income - day.expenses),
         "#2B47FC"
       ),
@@ -166,7 +168,7 @@ const Statistic = () => {
                 <div className="w-8 lg:w-10">
                   <img onClick={() => navigate(-1)} src={left} alt="left" className="cursor-pointer hover:scale-110 transition-transform" />
                 </div>
-                <h4 className="text-white text-center flex-1 text-lg lg:text-2xl font-semibold">Statistics</h4>
+                <h4 className="text-white text-center flex-1 text-lg lg:text-2xl font-semibold"><FormattedMessage id="nav.statistics" /></h4>
                 <div className="w-8 lg:w-10"></div>
               </div>
             </div>
@@ -183,7 +185,7 @@ const Statistic = () => {
             : <>
               {/* Transaction Header with Filters */}
               <div className="px-[5%] py-2 flex justify-between items-center lg:px-8">
-                <h6 className="m-0 text-base lg:text-xl font-semibold">Top Spending</h6>
+                <h6 className="m-0 text-base lg:text-xl font-semibold"><FormattedMessage id="statistics.topSpending" /></h6>
                 <div className="flex gap-2">
                   <form action="">
                     <select
@@ -192,10 +194,10 @@ const Statistic = () => {
                       id=""
                       className="border border-gray-400 px-2 py-1 rounded-lg text-sm lg:px-3 lg:py-2 lg:text-base focus:outline-none focus:border-darkBlue"
                     >
-                      <option value="">Filter by</option>
-                      <option value="Amount">Amount</option>
-                      <option value="Name">Name</option>
-                      <option value="Date">Date</option>
+                      <option value=""><FormattedMessage id="statistics.filterBy" /></option>
+                      <option value="Amount"><FormattedMessage id="statistics.amount" /></option>
+                      <option value="Name"><FormattedMessage id="statistics.name" /></option>
+                      <option value="Date"><FormattedMessage id="statistics.date" /></option>
                     </select>
                   </form>
                   <img onClick={handleToggleAmount} src={Vector} alt={Vector} className="cursor-pointer hover:scale-110 transition-transform w-5 lg:w-6" />

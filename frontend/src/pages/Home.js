@@ -10,6 +10,7 @@ import { useGetTransactionsMutation } from "../redux/transaction/transaction-api
 import { useSelector } from "react-redux";
 import Loading from "../components/common/Loading";
 import { cardAnimation, listItemAnimation } from "../utils/animationHelpers";
+import { FormattedMessage } from "react-intl";
 
 const Home = () => {
 
@@ -50,7 +51,7 @@ const Home = () => {
           {/* Header with Gradient */}
           <div className="bg-gradient-blue rounded-b-[20px] h-[25vh] lg:h-[30vh] lg:rounded-[30px]">
             <h4 className="text-white text-center pt-16 lg:pt-20 lg:text-2xl font-semibold">
-              Home
+              <FormattedMessage id="nav.home" />
             </h4>
 
             {/* Blue Container Card */}
@@ -61,7 +62,7 @@ const Home = () => {
               {/* Headline */}
               <div className="flex items-center pb-2 lg:pb-4">
                 <h4 className="font-semibold text-base lg:text-xl mr-2">
-                  Total Balance
+                  <FormattedMessage id="home.totalBalance" />
                 </h4>
                 <img src={arrowUp} alt="arrow up" className="h-auto lg:w-5" />
                 <img
@@ -84,7 +85,7 @@ const Home = () => {
                       <span className="inline-block fill-white mr-1 rounded-[50px] p-1.5 bg-white/15 lg:p-2">
                         <ArrowUpIcon className="w-5 h-5 lg:w-6 lg:h-6" />
                       </span>
-                      Income
+                      <FormattedMessage id="home.income" />
                     </h4>
                     <p className="m-0 text-white lg:text-xl">
                       $ {income?.toFixed(2)}
@@ -96,7 +97,7 @@ const Home = () => {
                       <span className="inline-block fill-white mr-1 rounded-[50px] p-1.5 bg-white/15 lg:p-2">
                         <ArrowDownIcon className="w-5 h-5 lg:w-6 lg:h-6" />
                       </span>
-                      Expenses
+                      <FormattedMessage id="home.expenses" />
                     </h4>
                     <p className="m-0 text-white lg:text-xl">
                       $ {expenses?.toFixed(2)}
@@ -114,13 +115,13 @@ const Home = () => {
               {/* Transaction Header */}
               <div className="px-[5%] mt-16 lg:mt-20 flex justify-between items-center lg:px-8">
                 <h6 className="text-left text-base lg:text-xl font-semibold">
-                  Transactions History
+                  <FormattedMessage id="home.transactionsHistory" />
                 </h6>
                 <Link
                   to="/wallet"
                   className="no-underline text-sm lg:text-base text-gray-500 hover:text-darkBlue"
                 >
-                  See all
+                  <FormattedMessage id="common.seeAll" />
                 </Link>
               </div>
 

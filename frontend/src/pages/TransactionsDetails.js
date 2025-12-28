@@ -9,6 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 import TopMobileBar from "../components/common/TopMobileBar";
 import { useGetTransactionByIdMutation } from "../redux/transaction/transaction-api";
 import { useEffect } from "react";
+import { FormattedMessage } from "react-intl";
 
 const TransactionsDetails = () => {
   const { id } = useParams();
@@ -28,7 +29,7 @@ const TransactionsDetails = () => {
               <TopMobileBar />
               <div className="flex justify-between items-center px-[5%] pt-6 lg:px-8">
                 <img onClick={() => navigate(-1)} src={left} alt="left" className="w-6 h-6 lg:w-8 lg:h-8 cursor-pointer hover:scale-110 transition-transform" />
-                <h4 className="text-white text-lg lg:text-2xl font-semibold m-0">Transaction Details</h4>
+                <h4 className="text-white text-lg lg:text-2xl font-semibold m-0"><FormattedMessage id="transaction.details" /></h4>
                 <img src={dots} alt="threeDots" className="w-6 h-6 lg:w-8 lg:h-8" />
               </div>
             </div>
@@ -49,21 +50,21 @@ const TransactionsDetails = () => {
                       }
                       className="text-sm lg:text-base font-medium mb-2"
                     >
-                      {detailTransaction.income ? "Income" : "Expense"}
+                      <FormattedMessage id={detailTransaction.income ? "home.income" : "home.expenses"} />
                     </p>
                     <h2 className="text-black text-3xl lg:text-5xl font-bold">${detailTransaction?.amount?.toFixed(2)} </h2>
                   </div>
                   
                   <div className="px-[5%] lg:px-8">
                     <div className="flex justify-between items-center py-4 border-t border-gray-200">
-                      <h5 className="text-base lg:text-lg font-semibold m-0">Transaction details</h5>
+                      <h5 className="text-base lg:text-lg font-semibold m-0"><FormattedMessage id="transaction.details" /></h5>
                       <img src={up} alt="up" className="w-4 h-4 lg:w-5 lg:h-5" />
                     </div>
                     
                     <div className="pb-6">
                       <div className="space-y-3">
                         <p className="flex justify-between text-sm lg:text-base">
-                          <span className="text-gray-500">Status</span>
+                          <span className="text-gray-500"><FormattedMessage id="transaction.status" /></span>
                           <span
                             style={
                               detailTransaction.income
@@ -72,15 +73,15 @@ const TransactionsDetails = () => {
                             }
                             className="font-medium"
                           >
-                            {detailTransaction.income ? "Income" : "Expense"}
+                            <FormattedMessage id={detailTransaction.income ? "home.income" : "home.expenses"} />
                           </span>
                         </p>
                         <p className="flex justify-between text-sm lg:text-base">
-                          <span className="text-gray-500">From</span>
+                          <span className="text-gray-500"><FormattedMessage id="transaction.from" /></span>
                           <span className="font-medium">{detailTransaction.name}</span>
                         </p>
                         <p className="flex justify-between text-sm lg:text-base">
-                          <span className="text-gray-500">Time</span>
+                          <span className="text-gray-500"><FormattedMessage id="transaction.time" /></span>
                           <span className="font-medium">
                             {new Date(detailTransaction.createdAt).toLocaleTimeString(
                               [],
@@ -89,7 +90,7 @@ const TransactionsDetails = () => {
                           </span>
                         </p>
                         <p className="flex justify-between text-sm lg:text-base">
-                          <span className="text-gray-500">Date</span>
+                          <span className="text-gray-500"><FormattedMessage id="transaction.date" /></span>
                           <span className="font-medium">
                             {new Date(detailTransaction.createdAt)
                               .toUTCString()
@@ -99,16 +100,16 @@ const TransactionsDetails = () => {
                       </div>
                       
                       <p className="flex justify-between py-3 mt-4 border-t border-gray-200 text-sm lg:text-base">
-                        <span className="text-gray-500">{detailTransaction.income ? "Earnings" : "Spending"}</span>
+                        <span className="text-gray-500"><FormattedMessage id={detailTransaction.income ? "transaction.earnings" : "transaction.spending"} /></span>
                         <span className="font-semibold">$ {detailTransaction?.amount?.toFixed(2)}</span>
                       </p>
                       <p className="flex justify-between py-3 border-t border-gray-200 text-base lg:text-lg">
-                        <span className="font-semibold">Total</span>
+                        <span className="font-semibold"><FormattedMessage id="transaction.total" /></span>
                         <span className="font-bold">$ {detailTransaction?.amount?.toFixed(2)}</span>
                       </p>
 
                       <div className="mt-6">
-                        <p className="text-gray-500 text-sm lg:text-base mb-3">Receipt</p>
+                        <p className="text-gray-500 text-sm lg:text-base mb-3"><FormattedMessage id="transaction.receipt" /></p>
                         {detailTransaction.img ? (
                           <img
                             src={
@@ -131,7 +132,7 @@ const TransactionsDetails = () => {
                           }
                           className="block text-center bg-darkBlue text-white py-3 rounded-full font-semibold text-base lg:text-lg lg:py-4 hover:bg-opacity-90 transition-all no-underline"
                         >
-                          Edit
+                          <FormattedMessage id="common.edit" />
                         </Link>
                       </div>
                     </div>

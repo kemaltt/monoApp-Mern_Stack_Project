@@ -7,8 +7,10 @@ import { useState } from "react";
 import { BiShow, BiHide } from "react-icons/bi";
 import { getErrorMessage } from "../utils/errorHandler";
 import { formAnimation } from "../utils/animationHelpers";
+import { FormattedMessage, useIntl } from "react-intl";
 
 const Login = ({ saveToken }) => {
+  const intl = useIntl();
   const {
     register,
     handleSubmit,
@@ -35,7 +37,7 @@ const Login = ({ saveToken }) => {
     <div className="min-h-screen bg-cover bg-no-repeat bg-[position:0_-30vh] px-[8%] lg:flex lg:items-center lg:justify-center lg:px-4" 
          style={{ backgroundImage: "url('../assets/images/lightBlueBackground.png')" }}>
       <div className="lg:max-w-2xl lg:w-full">
-        <h1 className="pt-8 pb-6 text-center lg:text-5xl">Login</h1>
+        <h1 className="pt-8 pb-6 text-center lg:text-5xl"><FormattedMessage id="auth.login" /></h1>
         
         {/* Animated Man Image */}
         <img
@@ -51,17 +53,17 @@ const Login = ({ saveToken }) => {
         >
           <div className="px-[5%] pt-2 pb-14 lg:px-[8%] lg:pt-4">
             <label htmlFor="email" className="text-gray-500 font-medium text-xs block text-left pb-2 lg:text-sm">
-              EMAIL
+              <FormattedMessage id="auth.email" />
             </label>
             <input
               type="email"
               id="email"
-              placeholder="Email"
+              placeholder={intl.formatMessage({ id: 'auth.email' })}
               {...register("email", {
-                required: "Email is required",
+                required: intl.formatMessage({ id: 'validation.emailRequired' }),
                 pattern: {
                   value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                  message: "Invalid email address",
+                  message: intl.formatMessage({ id: 'validation.emailInvalid' }),
                 },
               })}
               className="block text-left py-3 px-[4%] mb-2 w-full rounded-lg border border-[#dddddd] lg:py-4 lg:text-base focus:outline-none focus:border-darkBlue"
@@ -71,18 +73,18 @@ const Login = ({ saveToken }) => {
             )}
 
             <label htmlFor="password" className="text-gray-500 font-medium text-xs block text-left pb-2 mt-4 lg:text-sm">
-              PASSWORD
+              <FormattedMessage id="auth.password" />
             </label>
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
                 id="password"
-                placeholder="Password"
+                placeholder={intl.formatMessage({ id: 'auth.password' })}
                 {...register("password", {
-                  required: "Password is required",
+                  required: intl.formatMessage({ id: 'validation.passwordRequired' }),
                   minLength: {
                     value: 8,
-                    message: "Password must be at least 8 characters",
+                    message: intl.formatMessage({ id: 'validation.passwordMinLength' }),
                   },
                 })}
                 className="block text-left py-3 px-[4%] pr-12 mb-4 w-full rounded-lg border border-[#dddddd] lg:py-4 lg:text-base focus:outline-none focus:border-darkBlue"
@@ -104,7 +106,7 @@ const Login = ({ saveToken }) => {
             type="submit"
             className="bg-gradient-blue border-none py-4 rounded-[50px] text-white text-lg font-semibold w-[80%] mx-auto block lg:text-xl lg:py-5 hover:bg-gradient-blue-reverse transition-all duration-300"
           >
-            Login
+            <FormattedMessage id="auth.login" />
             {isLoading && (
               <span
                 className="spinner-border spinner-border-sm mx-1"
@@ -122,9 +124,9 @@ const Login = ({ saveToken }) => {
         </motion.form>
 
         <p className="py-4 px-[2%] text-xs m-0 lg:text-sm lg:text-center">
-          Have No Account?{" "}
+          <FormattedMessage id="auth.noAccount" />{" "}
           <Link to="/signup" className="no-underline text-darkBlue hover:underline">
-            Sign Up
+            <FormattedMessage id="auth.signup" />
           </Link>
         </p>
       </div>

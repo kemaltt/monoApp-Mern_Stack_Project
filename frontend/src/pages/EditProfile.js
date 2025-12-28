@@ -12,6 +12,7 @@ import { FaRegUser } from "react-icons/fa";
 import { MdOutlineEdit } from "react-icons/md";
 import { MdOutlineAlternateEmail } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import { FormattedMessage } from "react-intl";
 
 
 
@@ -89,7 +90,7 @@ const EditProfile = () => {
         <div className="lg:max-w-4xl lg:w-full">
           <div className="bg-gradient-blue rounded-b-[20px] h-[25vh] lg:h-[30vh] lg:rounded-[30px]">
             <TopMobileBar />
-            <h4 className="text-white text-center pt-12 lg:pt-16 lg:text-2xl font-semibold">Edit Profile</h4>
+            <h4 className="text-white text-center pt-12 lg:pt-16 lg:text-2xl font-semibold"><FormattedMessage id="profile.editProfile" /></h4>
           </div>
           
           <motion.div
@@ -235,7 +236,7 @@ const EditProfile = () => {
                 disabled={isLoading}
                 className="bg-darkBlue border-none py-4 rounded-[50px] text-white text-lg font-semibold w-full lg:text-xl lg:py-5 hover:bg-opacity-90 transition-all disabled:opacity-50"
               >
-                Save Profile
+                <FormattedMessage id="profile.saveProfile" />
                 {isLoading && (
                   <span className="spinner-border spinner-border-sm mx-1" role="status"></span>
                 )}
