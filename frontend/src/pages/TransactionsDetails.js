@@ -1,18 +1,20 @@
 import { useParams } from "react-router-dom";
 import left from "../assets/images/chevron-left.png";
 import dots from "../assets/images/threeDots.png";
-import up from "../assets/images/chevron-up.png";
 import Nav from "../components/common/Nav";
 import Loading from "../components/common/Loading";
 import { apiBaseUrl } from "../api/api";
 import { Link, useNavigate } from "react-router-dom";
 import { useGetTransactionByIdMutation } from "../redux/transaction/transaction-api";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { BiChevronDown, BiChevronUp } from "react-icons/bi";
+import { motion, AnimatePresence } from "framer-motion";
 import { FormattedMessage } from "react-intl";
 
 const TransactionsDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [detailsOpen, setDetailsOpen] = useState(false);
   const [getTransactionById, { data: detailTransaction, isLoading }] = useGetTransactionByIdMutation()
 
   useEffect(() => {
@@ -32,7 +34,7 @@ const TransactionsDetails = () => {
                 <img src={dots} alt="threeDots" className="w-6 h-6 lg:w-8 lg:h-8" />
               </div>
             </div>
-            
+
             <div className="bg-white dark:bg-gray-800 rounded-[30px] w-[90%] mx-auto -mt-6 shadow-[5px_5px_5px_5px_rgba(0,0,0,0.1)] dark:shadow-gray-900/50 lg:w-[95%] lg:-mt-8">
               {isLoading
                 ? <Loading />
@@ -53,51 +55,70 @@ const TransactionsDetails = () => {
                     </p>
                     <h2 className="text-black dark:text-white text-3xl lg:text-5xl font-bold">${detailTransaction?.amount?.toFixed(2)} </h2>
                   </div>
-                  
+
                   <div className="px-[5%] lg:px-8">
                     <div className="flex justify-between items-center py-4 border-t border-gray-200 dark:border-gray-700">
                       <h5 className="text-base lg:text-lg font-semibold m-0 text-gray-900 dark:text-white"><FormattedMessage id="transaction.details" /></h5>
-                      <img src={up} alt="up" className="w-4 h-4 lg:w-5 lg:h-5" />
+                      <button
+                        onClick={() => setDetailsOpen((s) => !s)}
+                        aria-expanded={detailsOpen}
+                        aria-controls="transaction-details"
+                        className="text-gray-600 dark:text-gray-300 hover:scale-110 transition-transform p-1 rounded"
+                      >
+                        {detailsOpen ? <BiChevronUp size={20} /> : <BiChevronDown size={20} />}
+                      </button>
                     </div>
-                    
+
                     <div className="pb-6">
-                      <div className="space-y-3">
-                        <p className="flex justify-between text-sm lg:text-base">
-                          <span className="text-gray-500 dark:text-gray-400"><FormattedMessage id="transaction.status" /></span>
-                          <span
-                            style={
-                              detailTransaction.income
-                                ? { color: "#25A969" }
-                                : { color: "#F95B51" }
-                            }
-                            className="font-medium"
+                      <AnimatePresence initial={false}>
+                        {detailsOpen && (
+                          <motion.div
+                            id="transaction-details"
+                            className="space-y-3"
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: 'auto' }}
+                            exit={{ opacity: 0, height: 0 }}
+                            transition={{ duration: 0.22 }}
+                            style={{ overflow: 'hidden' }}
                           >
-                            <FormattedMessage id={detailTransaction.income ? "home.income" : "home.expenses"} />
-                          </span>
-                        </p>
-                        <p className="flex justify-between text-sm lg:text-base">
-                          <span className="text-gray-500 dark:text-gray-400"><FormattedMessage id="transaction.from" /></span>
-                          <span className="font-medium">{detailTransaction.name}</span>
-                        </p>
-                        <p className="flex justify-between text-sm lg:text-base">
-                          <span className="text-gray-500"><FormattedMessage id="transaction.time" /></span>
-                          <span className="font-medium text-gray-900 dark:text-white">
-                            {new Date(detailTransaction.createdAt).toLocaleTimeString(
-                              [],
-                              { hour: "2-digit", minute: "2-digit" }
-                            )}
-                          </span>
-                        </p>
-                        <p className="flex justify-between text-sm lg:text-base">
-                          <span className="text-gray-500 dark:text-gray-400"><FormattedMessage id="transaction.date" /></span>
-                          <span className="font-medium text-gray-900 dark:text-white">
-                            {new Date(detailTransaction.createdAt)
-                              .toUTCString()
-                              .slice(0, 17)}
-                          </span>
-                        </p>
-                      </div>
-                      
+                            <p className="flex justify-between text-sm lg:text-base">
+                              <span className="text-gray-500 dark:text-gray-400"><FormattedMessage id="transaction.status" /></span>
+                              <span
+                                style={
+                                  detailTransaction.income
+                                    ? { color: "#25A969" }
+                                    : { color: "#F95B51" }
+                                }
+                                className="font-medium"
+                              >
+                                <FormattedMessage id={detailTransaction.income ? "home.income" : "home.expenses"} />
+                              </span>
+                            </p>
+                            <p className="flex justify-between text-sm lg:text-base">
+                              <span className="text-gray-500 dark:text-gray-400"><FormattedMessage id="transaction.from" /></span>
+                              <span className="font-medium">{detailTransaction.name}</span>
+                            </p>
+                            <p className="flex justify-between text-sm lg:text-base">
+                              <span className="text-gray-500"><FormattedMessage id="transaction.time" /></span>
+                              <span className="font-medium text-gray-900 dark:text-white">
+                                {new Date(detailTransaction.createdAt).toLocaleTimeString(
+                                  [],
+                                  { hour: "2-digit", minute: "2-digit" }
+                                )}
+                              </span>
+                            </p>
+                            <p className="flex justify-between text-sm lg:text-base">
+                              <span className="text-gray-500 dark:text-gray-400"><FormattedMessage id="transaction.date" /></span>
+                              <span className="font-medium text-gray-900 dark:text-white">
+                                {new Date(detailTransaction.createdAt)
+                                  .toUTCString()
+                                  .slice(0, 17)}
+                              </span>
+                            </p>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+
                       <p className="flex justify-between py-3 mt-4 border-t border-gray-200 dark:border-gray-700 text-sm lg:text-base">
                         <span className="text-gray-500 dark:text-gray-400"><FormattedMessage id={detailTransaction.income ? "transaction.earnings" : "transaction.spending"} /></span>
                         <span className="font-semibold text-gray-900 dark:text-white">$ {detailTransaction?.amount?.toFixed(2)}</span>
@@ -121,7 +142,7 @@ const TransactionsDetails = () => {
                           />
                         ) : null}
                       </div>
-                      
+
                       <div className="mt-6 pb-6">
                         <Link
                           to={
