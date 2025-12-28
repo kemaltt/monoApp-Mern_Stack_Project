@@ -16,6 +16,7 @@
   "auth.logout": "Abmelden",
   "auth.loginSuccess": "Erfolgreich angemeldet!",
   "auth.signupSuccess": "Registrierung erfolgreich!",
+  "auth.logoutSuccess": "Erfolgreich abgemeldet!",
   "validation.emailRequired": "E-Mail ist erforderlich",
   "validation.emailInvalid": "Ungültige E-Mail-Adresse",
   "validation.passwordRequired": "Passwort ist erforderlich",

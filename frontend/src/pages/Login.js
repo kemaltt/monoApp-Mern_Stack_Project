@@ -1,36 +1,29 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Man from "../assets/images/man.png";
 import { motion } from "framer-motion";
 import { useLoginMutation } from "../redux/auth/auth-api";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { BiShow, BiHide } from "react-icons/bi";
-import { getErrorMessage } from "../utils/errorHandler";
 import { formAnimation } from "../utils/animationHelpers";
 import { FormattedMessage, useIntl } from "react-intl";
-import { toast } from 'react-toastify';
+import { useAuth } from "../hooks/useAuth";
 
-const Login = ({ saveToken }) => {
+const Login = () => {
   const intl = useIntl();
+  const { login: authLogin } = useAuth();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const [login, { isLoading }] = useLoginMutation();
-  const navigate = useNavigate();
+  const [loginMutation, { isLoading }] = useLoginMutation();
   const [showPassword, setShowPassword] = useState(false);
 
   const handleLogIn = async (data) => {
-    const response = await login(data);
-    if (response.error) {
-      toast.error(getErrorMessage(response));
-    } else {
-      toast.success(intl.formatMessage({ id: 'auth.loginSuccess' }));
-      saveToken(response.data.accessToken);
-      setTimeout(() => {
-        navigate("/home");
-      }, 500);
+    const response = await loginMutation(data);
+    if (!response.error) {
+      authLogin(response.data.accessToken);
     }
   };
 
