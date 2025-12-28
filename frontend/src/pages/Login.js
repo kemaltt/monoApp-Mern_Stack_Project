@@ -8,6 +8,7 @@ import { BiShow, BiHide } from "react-icons/bi";
 import { getErrorMessage } from "../utils/errorHandler";
 import { formAnimation } from "../utils/animationHelpers";
 import { FormattedMessage, useIntl } from "react-intl";
+import { toast } from 'react-toastify';
 
 const Login = ({ saveToken }) => {
   const intl = useIntl();
@@ -18,14 +19,14 @@ const Login = ({ saveToken }) => {
   } = useForm();
   const [login, { isLoading }] = useLoginMutation();
   const navigate = useNavigate();
-  const [errorMessage, setErrorMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   const handleLogIn = async (data) => {
     const response = await login(data);
     if (response.error) {
-      setErrorMessage(getErrorMessage(response));
+      toast.error(getErrorMessage(response));
     } else {
+      toast.success(intl.formatMessage({ id: 'auth.loginSuccess' }));
       saveToken(response.data.accessToken);
       setTimeout(() => {
         navigate("/home");
@@ -114,13 +115,6 @@ const Login = ({ saveToken }) => {
               ></span>
             )}
           </button>
-
-          {/* Error Message */}
-          {errorMessage && (
-            <div className="alert alert-danger text-center mt-3 mx-auto w-[80%]" role="alert">
-              {errorMessage}
-            </div>
-          )}
         </motion.form>
 
         <p className="py-4 px-[2%] text-xs m-0 lg:text-sm lg:text-center">

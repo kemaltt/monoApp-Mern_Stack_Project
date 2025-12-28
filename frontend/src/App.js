@@ -14,6 +14,8 @@ import EditIncome from "./components/forms/EditIncome";
 import AuthRequired from "./components/common/AuthRequired";
 import { useAppContext } from "./context/AppContext";
 import { IntlContextProvider } from "./context/IntlContext";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "bootstrap/dist/css/bootstrap.css";
 import EditProfile from "./pages/EditProfile";
 
@@ -25,6 +27,18 @@ function App() {
   return (
     <IntlContextProvider>
       <div className="min-h-screen bg-white">
+        <ToastContainer
+          position="top-right"
+          autoClose={4000}
+          hideProgressBar={false}
+          newestOnTop={true}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+        />
         <BrowserRouter>
 
         <Routes>
