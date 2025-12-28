@@ -4,16 +4,15 @@ import { BiImageAdd, BiXCircle, BiShow, BiHide } from "react-icons/bi";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { useRegisterMutation } from "../redux/auth/auth-api";
-import { getErrorMessage } from "../utils/errorHandler";
 import { formAnimation } from "../utils/animationHelpers";
 import { FormattedMessage, useIntl } from "react-intl";
+import { toast } from "react-toastify";
 
 const SignUp = () => {
   const intl = useIntl();
   const { register, handleSubmit, setValue, formState: { errors } } = useForm();
   const [registerMutation, { isLoading }] = useRegisterMutation();
   const [previewImg, setPreviewImg] = useState(null);
-  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
@@ -45,14 +44,23 @@ const SignUp = () => {
       formData.append("profile_image", data.profile_image, data.profile_image.name);
     }
 
-    const response = await registerMutation(formData);
-    if (response.error) {
-      setErrorMessage(getErrorMessage(response));
-    } else {
-      setErrorMessage(<p className="text-success"><FormattedMessage id="messages.accountCreated" /></p>);
+    try {
+      const response = await registerMutation(formData).unwrap();
+      // toast.success(intl.formatMessage({ id: 'messages.accountCreated' }));
+      toast.success(response.message || intl.formatMessage({ id: 'auth.signupSuccess' }));
       setTimeout(() => {
         navigate("/login");
       }, 500);
+    } catch (error) {
+      // API Fehler anzeigen - "Error:" Prefix entfernen
+      let errorMessage = (error?.data?.message || error?.message || intl.formatMessage({ id: 'auth.registerError' })).replace(/^Error:\s*/i, '');
+      
+      // Spezifische Fehlermeldungen übersetzen
+      if (errorMessage.toLowerCase().includes('email is registered') || errorMessage.toLowerCase().includes('email is already registered')) {
+        errorMessage = intl.formatMessage({ id: 'auth.emailAlreadyRegistered' });
+      }
+      
+      toast.error(errorMessage);
     }
   };
 
@@ -163,13 +171,6 @@ const SignUp = () => {
               )}
             </button>
           </div>
-
-          {/* Error Message */}
-          {errorMessage && (
-            <div className="alert alert-danger text-center mt-3 mx-[5%]" role="alert">
-              {errorMessage}
-            </div>
-          )}
         </motion.form>
         
         <p className="py-4 px-[2%] text-xs m-0 lg:text-sm lg:text-center">

@@ -8,6 +8,7 @@ import { BiShow, BiHide } from "react-icons/bi";
 import { formAnimation } from "../utils/animationHelpers";
 import { FormattedMessage, useIntl } from "react-intl";
 import { useAuth } from "../hooks/useAuth";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const intl = useIntl();
@@ -21,9 +22,13 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleLogIn = async (data) => {
-    const response = await loginMutation(data);
-    if (!response.error) {
-      authLogin(response.data.accessToken);
+    try {
+      const response = await loginMutation(data).unwrap();
+      authLogin(response.accessToken);
+    } catch (error) {
+      // API Fehler anzeigen - "Error:" Prefix entfernen
+      const errorMessage = (error?.data?.message || error?.message || intl.formatMessage({ id: 'auth.loginError' })).replace(/^Error:\s*/i, '');
+      toast.error(errorMessage);
     }
   };
 
