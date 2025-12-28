@@ -7,6 +7,7 @@ const { showMyProfile } = require("../controllers/user-controller/show-my-profil
 const { refreshUserToken } = require("../controllers/user-controller/refresh-user-token");
 const { loginUser } = require("../controllers/user-controller/login-user");
 const { registerUser } = require("../controllers/user-controller/register-user");
+const { verifyEmail } = require("../controllers/user-controller/verify-email");
 const { showAllUser } = require("../controllers/user-controller/show-all-users");
 const { uploadToFirebase, upload } = require("../services/file-upload.service");
 const UserModel = require("../models/UserModel");
@@ -113,6 +114,23 @@ userRouter.post("/login", async (req, res) => {
 userRouter.get("/logout", async (req, res) => {
   req.session.refreshToken = null;
   res.status(200).json({ message: 'Logged out successfully.' });
+});
+
+userRouter.get("/verify-email", async (req, res) => {
+  try {
+    const { token } = req.query;
+
+    if (!token) {
+      throw new Error("Verification token is required");
+    }
+
+    const result = await verifyEmail({ token });
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(400).json({
+      message: error.message || "Email verification failed"
+    });
+  }
 });
 
 userRouter.get("/transactions", doAuthMiddleware, async (req, res) => {

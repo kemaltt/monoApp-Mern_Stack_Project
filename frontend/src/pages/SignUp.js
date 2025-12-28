@@ -10,10 +10,10 @@ import { toast } from "react-toastify";
 
 const SignUp = () => {
   const intl = useIntl();
+  const navigate = useNavigate();
   const { register, handleSubmit, setValue, formState: { errors } } = useForm();
   const [registerMutation, { isLoading }] = useRegisterMutation();
   const [previewImg, setPreviewImg] = useState(null);
-  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
   const handleImageChange = (e) => {
@@ -46,11 +46,17 @@ const SignUp = () => {
 
     try {
       const response = await registerMutation(formData).unwrap();
-      // toast.success(intl.formatMessage({ id: 'messages.accountCreated' }));
-      toast.success(response.message || intl.formatMessage({ id: 'auth.signupSuccess' }));
+
+      // Show success message from backend or fallback to translation
+      toast.success(
+        response.message ||
+        intl.formatMessage({ id: 'auth.registrationSuccessCheckEmail' })
+      );
+
+      // Redirect to login page after showing toast message
       setTimeout(() => {
         navigate("/login");
-      }, 500);
+      }, 2000); // 2 seconds delay to let user read the toast message
     } catch (error) {
       // API Fehler anzeigen - "Error:" Prefix entfernen
       let errorMessage = (error?.data?.message || error?.message || intl.formatMessage({ id: 'auth.registerError' })).replace(/^Error:\s*/i, '');

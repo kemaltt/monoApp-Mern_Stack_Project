@@ -131,5 +131,18 @@
   "emptyState.transactions.action": "Add First Transaction",
   "emptyState.wallet.title": "Wallet is Empty",
   "emptyState.wallet.message": "Your wallet is waiting for its first transaction. Add income or expenses to get started.",
-  "emptyState.wallet.action": "Add Transaction"
+  "emptyState.wallet.action": "Add Transaction",
+  "auth.emailNotVerified": "Please verify your email by clicking the link sent to your inbox",
+  "auth.verifyingEmail": "Verifying Your Email",
+  "auth.pleaseWait": "Please wait while we verify your email address...",
+  "auth.emailVerifiedSuccess": "Email Verified Successfully!",
+  "auth.emailVerifiedMessage": "Your email has been verified. You can now log in to your account.",
+  "auth.redirectingToLogin": "Redirecting to login in {seconds} seconds...",
+  "auth.verificationFailed": "Verification Failed",
+  "auth.verificationTokenMissing": "Verification token is missing",
+  "auth.verificationTokenExpired": "Verification link has expired. Please register again.",
+  "auth.verificationTokenInvalid": "Invalid verification link",
+  "auth.emailAlreadyVerified": "Email is already verified. Please log in.",
+  "auth.registrationSuccessCheckEmail": "Registration successful! Please check your email to verify your account.",
+  "auth.goToLogin": "Go to Login"
 }

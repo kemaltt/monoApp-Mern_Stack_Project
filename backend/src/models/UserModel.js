@@ -23,6 +23,14 @@ const User = new mongoose.Schema({
     type: Boolean,
     default: false
   },
+  verification_token: {
+    type: String,
+    default: null
+  },
+  verification_token_expires: {
+    type: Date,
+    default: null
+  },
   total_amount: {
     type: Number,
     default: 0

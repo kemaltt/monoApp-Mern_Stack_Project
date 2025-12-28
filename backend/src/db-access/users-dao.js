@@ -38,10 +38,18 @@ async function updateUserTotalBalance(id, totalBalance) {
     .updateOne({ _id: ObjectId(id) }, { $set: { totalBalance } });
 }
 
+async function updateUser(id, updateData) {
+  const db = await getDB();
+  return db
+    .collection(usersCollectionName)
+    .updateOne({ _id: ObjectId(id) }, { $set: updateData });
+}
+
 module.exports = {
   findAll,
   findByEmail,
   findById,
   insertUser,
   updateUserTotalBalance,
+  updateUser,
 };

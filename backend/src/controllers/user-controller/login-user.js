@@ -12,6 +12,11 @@ async function loginUser({ email, password }) {
     throw new Error("Your credentials are incorrect!");
   }
 
+  // Check if email is verified
+  if (!foundUser.is_verified) {
+    throw new Error("Lütfen mailinize gelen linki onaylayın");
+  }
+
   const user = makeUser(foundUser);
   const passwordHash = hash(password + "" + user.passwordSalt);
 

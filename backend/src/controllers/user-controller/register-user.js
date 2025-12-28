@@ -1,6 +1,8 @@
 const { UserDAO } = require("../../db-access");
 const { makeUser } = require("../../domain/User");
 const { hash, createRandomHash } = require("../../utils/hash");
+const jwt = require("jsonwebtoken");
+const { sendVerificationEmail } = require("../../services/email.service");
 
 async function registerUser({ name, email, password, profile_image }) {
   const nameVal = /^(?=)(?=).{2,15}$/;
@@ -38,13 +40,49 @@ async function registerUser({ name, email, password, profile_image }) {
     });
 
     const insertResult = await UserDAO.insertUser(newUser);
+
+    // Generate verification token
+    const verificationToken = jwt.sign(
+      { id: insertResult.insertedId, email: email },
+      process.env.JWT_SECRET,
+      { expiresIn: "30m" }
+    );
+
+    const tokenExpiry = new Date(Date.now() + 30 * 60 * 1000); // 30 minutes
+
+    // Update user with verification token
+    await UserDAO.updateUser(insertResult.insertedId, {
+      verification_token: verificationToken,
+      verification_token_expires: tokenExpiry
+    });
+
+    // Generate verification URL
+    const verificationURL = `${process.env.API_PATH === 'production' ? process.env.CLIENT_URL : process.env.CLIENT_LOCAL_URL}/verify-email?token=${verificationToken}`;
+
+    // Send verification email
+    try {
+      await sendVerificationEmail({
+        name,
+        email,
+        subject: "Mono App - Verify Your Email Address",
+        currentYear: new Date().getFullYear(),
+        verificationURL,
+      });
+    } catch (emailError) {
+      console.error("Failed to send verification email:", emailError);
+      // Continue with registration even if email fails
+    }
+
     const userView = {
       _id: insertResult.insertedId,
       name,
       email,
     };
 
-    return userView;
+    return {
+      user: userView,
+      message: "Registration successful! Please check your email to verify your account."
+    };
   }
 }
 

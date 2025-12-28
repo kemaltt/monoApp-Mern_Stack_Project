@@ -131,5 +131,18 @@
   "emptyState.transactions.action": "Erste Transaktion hinzufügen",
   "emptyState.wallet.title": "Geldbörse ist leer",
   "emptyState.wallet.message": "Ihre Geldbörse wartet auf die erste Transaktion. Fügen Sie Einkommen oder Ausgaben hinzu, um zu beginnen.",
-  "emptyState.wallet.action": "Transaktion hinzufügen"
+  "emptyState.wallet.action": "Transaktion hinzufügen",
+  "auth.emailNotVerified": "Bitte bestätigen Sie Ihre E-Mail-Adresse, indem Sie auf den Link in Ihrem Posteingang klicken",
+  "auth.verifyingEmail": "E-Mail wird verifiziert",
+  "auth.pleaseWait": "Bitte warten Sie, während wir Ihre E-Mail-Adresse verifizieren...",
+  "auth.emailVerifiedSuccess": "E-Mail erfolgreich verifiziert!",
+  "auth.emailVerifiedMessage": "Ihre E-Mail-Adresse wurde verifiziert. Sie können sich jetzt in Ihr Konto einloggen.",
+  "auth.redirectingToLogin": "Sie werden in {seconds} Sekunden zur Anmeldeseite weitergeleitet...",
+  "auth.verificationFailed": "Verifizierung fehlgeschlagen",
+  "auth.verificationTokenMissing": "Verifizierungscode fehlt",
+  "auth.verificationTokenExpired": "Der Verifizierungslink ist abgelaufen. Bitte registrieren Sie sich erneut.",
+  "auth.verificationTokenInvalid": "Ungültiger Verifizierungslink",
+  "auth.emailAlreadyVerified": "E-Mail ist bereits verifiziert. Bitte melden Sie sich an.",
+  "auth.registrationSuccessCheckEmail": "Registrierung erfolgreich! Bitte überprüfen Sie Ihre E-Mails, um Ihr Konto zu verifizieren.",
+  "auth.goToLogin": "Zur Anmeldeseite"
 }

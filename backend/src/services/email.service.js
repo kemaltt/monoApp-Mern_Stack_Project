@@ -155,12 +155,17 @@ const nodemailer = require('nodemailer');
         .button {
             display: inline-block;
             margin-top: 20px;
-            padding: 12px 20px;
-            background: linear-gradient(260deg, #2376ae 0%, #c16ecf 100%);
+            padding: 14px 35px;
+            background: #2B47FC;
             color: white !important;
             text-decoration: none;
-            border-radius: 4px;
+            border-radius: 50px;
             font-size: 16px;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+        .button:hover {
+            background: #3A54FC;
         }
         .footer {
             margin-top: 20px;
@@ -176,9 +181,10 @@ const nodemailer = require('nodemailer');
         </div>
         <div class="content">
             <p>Hello ${options?.name},</p>
-            <p>Welcome to Dein Shop! Please verify your email address to complete your registration. Click the button below to verify:</p>
+            <p>Welcome to Mono App! Please verify your email address to complete your registration. Click the button below to verify:</p>
             <a href="${options?.verificationURL}" class="button">Verify Email</a>
-            <p>If you didn’t register with us, please ignore this email.</p>
+            <p style="font-size: 14px; color: #666;">This link will expire in 30 minutes.</p>
+            <p>If you didn't register with us, please ignore this email.</p>
             <p>For any questions or concerns, feel free to contact our support team.</p>
         </div>
         <div class="footer">

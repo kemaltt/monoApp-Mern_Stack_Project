@@ -131,5 +131,18 @@
   "emptyState.transactions.action": "İlk İşlemi Ekle",
   "emptyState.wallet.title": "Cüzdan Boş",
   "emptyState.wallet.message": "Cüzdanınız ilk işlemini bekliyor. Başlamak için gelir veya gider ekleyin.",
-  "emptyState.wallet.action": "İşlem Ekle"
+  "emptyState.wallet.action": "İşlem Ekle",
+  "auth.emailNotVerified": "Lütfen mailinize gelen linki onaylayın",
+  "auth.verifyingEmail": "E-postanız Doğrulanıyor",
+  "auth.pleaseWait": "E-posta adresinizi doğrularken lütfen bekleyin...",
+  "auth.emailVerifiedSuccess": "E-posta Başarıyla Doğrulandı!",
+  "auth.emailVerifiedMessage": "E-postanız doğrulandı. Artık hesabınıza giriş yapabilirsiniz.",
+  "auth.redirectingToLogin": "{seconds} saniye içinde giriş sayfasına yönlendiriliyorsunuz...",
+  "auth.verificationFailed": "Doğrulama Başarısız",
+  "auth.verificationTokenMissing": "Doğrulama kodu eksik",
+  "auth.verificationTokenExpired": "Doğrulama linki süresi dolmuş. Lütfen tekrar kayıt olun.",
+  "auth.verificationTokenInvalid": "Geçersiz doğrulama linki",
+  "auth.emailAlreadyVerified": "E-posta zaten doğrulanmış. Lütfen giriş yapın.",
+  "auth.registrationSuccessCheckEmail": "Kayıt başarılı! Lütfen hesabınızı doğrulamak için e-postanızı kontrol edin.",
+  "auth.goToLogin": "Giriş Sayfasına Git"
 }

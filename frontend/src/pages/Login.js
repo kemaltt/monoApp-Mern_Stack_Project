@@ -27,7 +27,18 @@ const Login = () => {
       authLogin(response.accessToken);
     } catch (error) {
       // API Fehler anzeigen - "Error:" Prefix entfernen
-      const errorMessage = (error?.data?.message || error?.message || intl.formatMessage({ id: 'auth.loginError' })).replace(/^Error:\s*/i, '');
+      let errorMessage = (
+        error?.data?.message ||
+        error?.message ||
+        intl.formatMessage({ id: 'auth.loginError' })
+      ).replace(/^Error:\s*/i, '');
+
+      // Check for email verification error
+      if (errorMessage.includes('mailinize gelen linki onaylayın') ||
+          errorMessage.includes('verify')) {
+        errorMessage = intl.formatMessage({ id: 'auth.emailNotVerified' });
+      }
+
       toast.error(errorMessage);
     }
   };

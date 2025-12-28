@@ -7,6 +7,7 @@ import Onboarding from "./pages/Onboarding";
 import Splashscreen from "./pages/SplashScreen";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
+import VerifyEmail from "./pages/VerifyEmail";
 import Profile from "./pages/Profile";
 import Add from "./pages/Add";
 import EditExpense from "./components/forms/EditExpense";
@@ -52,6 +53,7 @@ function App() {
           <Route path="/onboarding" element={<Onboarding />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/verify-email" element={<VerifyEmail />} />
 
           <Route
             path="/home"
