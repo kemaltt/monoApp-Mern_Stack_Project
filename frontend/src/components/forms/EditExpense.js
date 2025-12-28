@@ -5,7 +5,6 @@ import Delete from "../Icons/Delete";
 import Nav from "../common/Nav";
 import { BiImageAdd, BiXCircle } from "react-icons/bi";
 import { motion } from "framer-motion";
-import TopMobileBar from "../common/TopMobileBar";
 import {
   useDeleteFromTransactionMutation,
   useDeleteImageMutation,
@@ -101,7 +100,7 @@ const EditExpense = () => {
       <div className="min-h-screen lg:flex lg:justify-center lg:items-start lg:pt-8 lg:pr-20">
         <div className="lg:max-w-4xl lg:w-full">
           <div className="bg-bgRed rounded-b-[20px] h-[25vh] lg:h-[30vh] lg:rounded-[30px]">
-            <TopMobileBar />
+            {/* <TopMobileBar /> */}
             <div className="flex justify-between items-center px-[5%] pt-6 lg:px-8">
               <img onClick={() => navigate(-1)} src={left} alt="left" className="w-6 h-6 lg:w-8 lg:h-8 cursor-pointer hover:scale-110 transition-transform" />
               <div onClick={deleteTransaction} className="cursor-pointer hover:scale-110 transition-transform">

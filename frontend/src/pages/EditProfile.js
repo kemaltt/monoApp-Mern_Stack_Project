@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef } from "react";
 import { MdDelete } from "react-icons/md";
 import Nav from "../components/common/Nav";
 import { motion } from "framer-motion";
-import TopMobileBar from "../components/common/TopMobileBar";
 import { useSelector } from "react-redux";
 import { useGetTransactionsMutation } from "../redux/transaction/transaction-api";
 import Loading from "../components/common/Loading";
@@ -89,7 +88,7 @@ const EditProfile = () => {
       <div className="min-h-screen lg:flex lg:justify-center lg:items-start lg:pt-8 lg:pr-20">
         <div className="lg:max-w-4xl lg:w-full">
           <div className="bg-gradient-blue rounded-b-[20px] h-[25vh] lg:h-[30vh] lg:rounded-[30px]">
-            <TopMobileBar />
+            {/* <TopMobileBar /> */}
             <h4 className="text-white text-center pt-12 lg:pt-16 lg:text-2xl font-semibold"><FormattedMessage id="profile.editProfile" /></h4>
           </div>
           

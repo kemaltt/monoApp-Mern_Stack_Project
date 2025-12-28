@@ -6,7 +6,6 @@ import Nav from "../components/common/Nav";
 // import { IoReceiptSharp } from "react-icons/io5";
 import { BiImageAdd, BiXCircle } from "react-icons/bi";
 import { motion } from "framer-motion";
-import TopMobileBar from "../components/common/TopMobileBar";
 import { useAddToTransactionMutation } from "../redux/transaction/transaction-api";
 import { useForm } from "react-hook-form";
 import { FormattedMessage, useIntl } from "react-intl";
@@ -73,7 +72,7 @@ const Add = () => {
             }
             className="rounded-b-[20px] h-[25vh] lg:h-[30vh] lg:rounded-[30px]"
           >
-            <TopMobileBar />
+            {/* <TopMobileBar /> */}
             <div className="flex justify-center gap-4 pt-12 lg:pt-16">
               <button 
                 onClick={() => setIncome(true)}

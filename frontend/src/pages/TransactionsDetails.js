@@ -6,7 +6,6 @@ import Nav from "../components/common/Nav";
 import Loading from "../components/common/Loading";
 import { apiBaseUrl } from "../api/api";
 import { Link, useNavigate } from "react-router-dom";
-import TopMobileBar from "../components/common/TopMobileBar";
 import { useGetTransactionByIdMutation } from "../redux/transaction/transaction-api";
 import { useEffect } from "react";
 import { FormattedMessage } from "react-intl";
@@ -26,7 +25,7 @@ const TransactionsDetails = () => {
         <div className="min-h-screen lg:flex lg:justify-center lg:items-start lg:pt-8 lg:pr-20">
           <div className="lg:max-w-4xl lg:w-full">
             <div className="bg-gradient-blue rounded-b-[20px] py-4 lg:rounded-[30px] lg:py-6">
-              <TopMobileBar />
+              {/* <TopMobileBar /> */}
               <div className="flex justify-between items-center px-[5%] pt-6 lg:px-8">
                 <img onClick={() => navigate(-1)} src={left} alt="left" className="w-6 h-6 lg:w-8 lg:h-8 cursor-pointer hover:scale-110 transition-transform" />
                 <h4 className="text-white text-lg lg:text-2xl font-semibold m-0"><FormattedMessage id="transaction.details" /></h4>

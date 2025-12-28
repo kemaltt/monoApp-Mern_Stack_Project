@@ -5,7 +5,6 @@ import Send from "../assets/images/Send.png";
 import Nav from "../components/common/Nav";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import TopMobileBar from "../components/common/TopMobileBar";
 import { useSelector } from "react-redux";
 import { useGetTransactionsMutation } from "../redux/transaction/transaction-api";
 import SkeletonLoader from "../components/common/SkeletonLoader";
@@ -48,7 +47,7 @@ const Wallet = () => {
         <div className="lg:max-w-4xl lg:w-full">
           {/* Header */}
           <div className="bg-gradient-blue rounded-b-[20px] h-[25vh] lg:h-[30vh] lg:rounded-[30px]">
-            <TopMobileBar />
+            {/* <TopMobileBar /> */}
             <div className="text-center pt-10 pb-4 lg:pt-16 lg:pb-8">
               <h4 className="text-white font-semibold text-lg lg:text-2xl"><FormattedMessage id="nav.wallet" /></h4>
             </div>
