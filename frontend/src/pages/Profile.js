@@ -12,7 +12,6 @@ import { useLogoutMutation } from "../redux/auth/auth-api";
 import { FormattedMessage } from "react-intl";
 import { useIntl } from "../context/IntlContext";
 import { MdLanguage, MdExpandMore } from "react-icons/md";
-import ThemeToggle from "../components/common/ThemeToggle";
 
 const Profile = () => {
   const navigate = useNavigate();
