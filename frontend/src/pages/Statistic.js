@@ -16,6 +16,7 @@ const Statistic = () => {
   const intl = useIntl();
   const [getTransactions, { isLoading }] = useGetTransactionsMutation();
   const { transactions } = useSelector((state) => state.transactions);
+  const [timeRange, setTimeRange] = useState(7); // Neue State für Zeitraum
 
   useEffect(() => {
     getTransactions();
@@ -48,25 +49,40 @@ const Statistic = () => {
     return { income, expenses };
   };
 
-  // Son 7 gün için gelir ve gider verilerini hesaplama
-  const last7DaysData = Array.from({ length: 7 }, (_, dayIdx) =>
+  // Dynamische Daten basierend auf timeRange
+  const chartData = Array.from({ length: timeRange }, (_, dayIdx) =>
     calculateIncomeExpenses(transactions?.transactions, dayIdx)
   );
 
-  // Labels oluşturma fonksiyonu
-  const generateLabels = (days) =>
-    Array.from({ length: days }, (_, idx) =>
-      new Date(Date.now() - hours24 * idx).toDateString().slice(0, 10)
-    );
+  // Labels oluşturma fonksiyonu mit Format-Verbesserung
+  const generateLabels = (days) => {
+    if (days <= 7) {
+      // Für 7 Tage: Mo, Di, Mi...
+      return Array.from({ length: days }, (_, idx) =>
+        new Date(Date.now() - hours24 * idx).toLocaleDateString('de-DE', { weekday: 'short', day: 'numeric' })
+      ).reverse();
+    } else if (days <= 31) {
+      // Für Monat: DD.MM
+      return Array.from({ length: days }, (_, idx) =>
+        new Date(Date.now() - hours24 * idx).toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit' })
+      ).reverse();
+    } else {
+      // Für längere Zeiträume: MMM YY
+      return Array.from({ length: days }, (_, idx) =>
+        new Date(Date.now() - hours24 * idx).toLocaleDateString('de-DE', { month: 'short', year: '2-digit' })
+      ).reverse();
+    }
+  };
 
-  const labels = generateLabels(7).reverse();
+  const labels = generateLabels(timeRange);
 
   // Dataset oluşturma fonksiyonu
   const createDataset = (label, data, backgroundColor) => ({
     label,
     data,
     backgroundColor,
-    borderRadius: 3,
+    borderRadius: 5,
+    barThickness: timeRange > 30 ? 8 : timeRange > 7 ? 12 : 16,
   });
 
   // Chart için data nesnesini oluşturma
@@ -74,24 +90,21 @@ const Statistic = () => {
     labels,
     datasets: [
       createDataset(
-        intl.formatMessage({ id: 'statistics.income7Days' }),
-        last7DaysData.map((day) => day.income),
+        intl.formatMessage({ id: 'statistics.income' }),
+        chartData.map((day) => day.income),
         "#00B495"
       ),
       createDataset(
-        intl.formatMessage({ id: 'statistics.expense7Days' }),
-        last7DaysData.map((day) => day.expenses),
+        intl.formatMessage({ id: 'statistics.expenses' }),
+        chartData.map((day) => day.expenses),
         "#E4797F"
       ),
       createDataset(
-        intl.formatMessage({ id: 'statistics.total7Days' }),
-        last7DaysData.map((day) => day.income - day.expenses),
+        intl.formatMessage({ id: 'statistics.total' }),
+        chartData.map((day) => day.income - day.expenses),
         "#2B47FC"
       ),
     ],
-    chartArea: {
-      backgroundColor: "rgba(251, 85, 85, 0.4)",
-    },
     maintainAspectRatio: false,
   };
 
@@ -201,7 +214,31 @@ const Statistic = () => {
               <>
                 {/* Chart */}
                 <div className="px-[5%] py-6 lg:px-8 lg:py-8">
-                  <div className="bg-white rounded-lg shadow-md p-4 lg:p-6">
+                  {/* Time Range Selector */}
+                  <div className="mb-4 flex gap-2 flex-wrap justify-center">
+                    {[
+                      { days: 7, label: intl.formatMessage({ id: 'statistics.7days' }) },
+                      { days: 14, label: intl.formatMessage({ id: 'statistics.14days' }) },
+                      { days: 30, label: intl.formatMessage({ id: 'statistics.30days' }) },
+                      { days: 90, label: intl.formatMessage({ id: 'statistics.90days' }) },
+                      { days: 180, label: intl.formatMessage({ id: 'statistics.180days' }) },
+                      { days: 365, label: intl.formatMessage({ id: 'statistics.365days' }) },
+                    ].map((range) => (
+                      <button
+                        key={range.days}
+                        onClick={() => setTimeRange(range.days)}
+                        className={`px-3 py-1.5 text-sm rounded-lg font-medium transition-all duration-200 lg:px-4 lg:py-2 lg:text-base ${
+                          timeRange === range.days
+                            ? 'bg-gradient-blue text-white shadow-md'
+                            : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                        }`}
+                      >
+                        {range.label}
+                      </button>
+                    ))}
+                  </div>
+                  
+                  <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 lg:p-6" style={{ height: '320px' }}>
                     <BarChart chartData={dataWeek} />
                   </div>
                 </div>
