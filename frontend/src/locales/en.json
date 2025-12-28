@@ -150,4 +150,16 @@
   "auth.emailAlreadyVerified": "Email is already verified. Please log in.",
   "auth.registrationSuccessCheckEmail": "Registration successful! Please check your email to verify your account.",
   "auth.goToLogin": "Go to Login"
+  ,"auth.forgotPassportTitle": "Forgot passport?",
+  "auth.forgotPassportDesc": "Enter your email and we'll send a secure link to reset your passport.",
+  "auth.sendPassportResetEmail": "Send reset email",
+  "auth.resetPassportTitle": "Reset Passport",
+  "auth.resetPassportDesc": "Enter your passport number twice to confirm and save it.",
+  "auth.passport": "Passport",
+  "auth.resetPassportButton": "Save passport",
+  "auth.passportRequired": "Passport is required",
+  "auth.passportMismatch": "Passport entries do not match",
+  "auth.passportResetSuccess": "Passport updated successfully",
+  "auth.forgotPassportLink": "I forgot my passport"
+  ,"auth.confirmPassport": "Confirm password"
 }

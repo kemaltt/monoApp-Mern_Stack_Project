@@ -149,5 +149,17 @@
   "auth.verificationTokenInvalid": "Ungültiger Verifizierungslink",
   "auth.emailAlreadyVerified": "E-Mail ist bereits verifiziert. Bitte melden Sie sich an.",
   "auth.registrationSuccessCheckEmail": "Registrierung erfolgreich! Bitte überprüfen Sie Ihre E-Mails, um Ihr Konto zu verifizieren.",
-  "auth.goToLogin": "Zur Anmeldeseite"
+  "auth.goToLogin": "Zur Anmeldeseite",
+  "auth.forgotPassportTitle": "Passwort vergessen?",
+  "auth.forgotPassportDesc": "Geben Sie Ihre E-Mail-Adresse ein und wir senden Ihnen einen sicheren Link zum Zurücksetzen Ihres Passworts.",
+  "auth.sendPassportResetEmail": "E-Mail zum Zurücksetzen senden",
+  "auth.resetPassportTitle": "Passwort zurücksetzen",
+  "auth.resetPassportDesc": "Geben Sie Ihr Passwort zweimal ein, um es zu bestätigen und zu speichern.",
+  "auth.passport": "Passwort",
+  "auth.resetPassportButton": "Passwort speichern",
+  "auth.passportRequired": "Passwort ist erforderlich",
+  "auth.passportMismatch": "Passwort-Einträge stimmen nicht überein",
+  "auth.passportResetSuccess": "Passwort erfolgreich aktualisiert",
+  "auth.forgotPassportLink": "Passwort vergessen"
+  ,"auth.confirmPassport": "Passwort bestätigen"
 }

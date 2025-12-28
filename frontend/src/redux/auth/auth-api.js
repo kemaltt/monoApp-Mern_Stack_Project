@@ -41,11 +41,25 @@ export const authApi = createApi({
         body: email,
       })
     }),
+    forgotPassport: builder.mutation({
+      query: (email) => ({
+        url: '/forgot-passport',
+        method: 'POST',
+        body: email,
+      })
+    }),
     resetPassword: builder.mutation({
       query: (data) => ({
         url: `/reset-password/${data.reset_password_key}`,
         method: 'PUT',
         body: data,
+      })
+    }),
+    resetPassport: builder.mutation({
+      query: (data) => ({
+        url: `/reset-passport/${data.reset_passport_key}`,
+        method: 'PUT',
+        body: { passport: data.passport },
       })
     }),
     logout: builder.mutation({
@@ -79,4 +93,4 @@ export const authApi = createApi({
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useLoginMutation, useRegisterMutation, useLogoutMutation, useForgotPasswordMutation, useResetPasswordMutation, useUploadProfileImageMutation, useUpdateUserMutation, useVerifyAccountMutation, useResendVerificationMutation } = authApi
+export const { useLoginMutation, useRegisterMutation, useLogoutMutation, useForgotPasswordMutation, useForgotPassportMutation, useResetPasswordMutation, useResetPassportMutation, useUploadProfileImageMutation, useUpdateUserMutation, useVerifyAccountMutation, useResendVerificationMutation } = authApi

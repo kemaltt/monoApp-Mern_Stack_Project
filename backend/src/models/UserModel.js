@@ -19,6 +19,12 @@ const User = new mongoose.Schema({
   reset_password_key: {
     type: String
   },
+  reset_passport_key: {
+    type: String
+  },
+  passport: {
+    type: String
+  },
   is_verified: {
     type: Boolean,
     default: false

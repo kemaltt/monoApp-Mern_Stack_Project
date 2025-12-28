@@ -54,7 +54,12 @@ app.get("/ping", (req, res) => {
 }
 );
 
-app.listen(PORT, () =>
-  console.log(`Server Started at Port ${PORT}`),
-  // connectMongoDB(PORT)
-);
+// Connect to MongoDB first, then start the server. If DB connection fails, exit.
+connectMongoDB(PORT)
+  .then(() => {
+    app.listen(PORT, () => console.log(`Server Started at Port ${PORT}`));
+  })
+  .catch((err) => {
+    console.error('Failed to start server due to DB connection error', err);
+    process.exit(1);
+  });

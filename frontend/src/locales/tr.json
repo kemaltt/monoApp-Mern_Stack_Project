@@ -149,5 +149,17 @@
   "auth.verificationTokenInvalid": "Geçersiz doğrulama linki",
   "auth.emailAlreadyVerified": "E-posta zaten doğrulanmış. Lütfen giriş yapın.",
   "auth.registrationSuccessCheckEmail": "Kayıt başarılı! Lütfen hesabınızı doğrulamak için e-postanızı kontrol edin.",
+    "auth.forgotPassportTitle": "Pasaportumu unuttum?",
+    "auth.forgotPassportDesc": "E-posta adresinizi girin; pasaportunuzu sıfırlamak için güvenli bir bağlantı gönderelim.",
+    "auth.sendPassportResetEmail": "Sıfırlama e-postası gönder",
+    "auth.resetPassportTitle": "Pasaportu sıfırla",
+    "auth.resetPassportDesc": "Onaylamak için pasaportunuzu iki kez girin ve kaydedin.",
+    "auth.passport": "Pasaport",
+    "auth.resetPassportButton": "Pasaportu kaydet",
+    "auth.passportRequired": "Pasaport gerekli",
+    "auth.passportMismatch": "Pasaportlar eşleşmiyor",
+    "auth.passportResetSuccess": "Pasaport başarıyla güncellendi",
+    "auth.forgotPassportLink": "Pasaportumu unuttum",
   "auth.goToLogin": "Giriş Sayfasına Git"
+  ,"auth.confirmPassport": "Parolayı onayla"
 }

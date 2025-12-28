@@ -126,10 +126,15 @@ const Login = () => {
           </button>
         </motion.form>
 
-        <p className="py-4 px-[2%] text-xs m-0 lg:text-sm lg:text-center">
+        <p className="pt-4 px-[2%] text-xs m-0 lg:text-sm lg:text-center">
           <FormattedMessage id="auth.noAccount" />{" "}
           <Link to="/signup" className="no-underline text-darkBlue hover:underline">
             <FormattedMessage id="auth.signup" />
+          </Link>
+        </p>
+        <p className="py-1 px-[2%] text-xs m-0 lg:text-sm lg:text-center">
+          <Link to="/forgot-passport" className="no-underline text-darkBlue hover:underline">
+            <FormattedMessage id="auth.forgotPassportTitle" />
           </Link>
         </p>
       </div>

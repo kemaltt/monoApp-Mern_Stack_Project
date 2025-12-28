@@ -52,15 +52,20 @@ const sendForgotPasswordEmail = async (options) => {
             color: #333333;
             line-height: 1.5;
         }
-        .button {
+          .button {
             display: inline-block;
             margin-top: 20px;
-            padding: 12px 20px;
-            background: linear-gradient(260deg, #2376ae 0%, #c16ecf 100%);
+            padding: 14px 35px;
+            background: #2B47FC;
             color: white !important;
             text-decoration: none;
-            border-radius: 4px;
+            border-radius: 50px;
             font-size: 16px;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+        .button:hover {
+            background: #3A54FC;
         }
         .footer {
             margin-top: 20px;

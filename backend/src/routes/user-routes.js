@@ -15,6 +15,7 @@ const UserModel = require("../models/UserModel");
 const { register, login, updateUser } = require("../controllers/auth-controller");
 const { getTransactions } = require("../controllers/transaction-controller");
 const { verifyToken } = require("../auth/verifyToken");
+const { forgotPassport, resetPassport } = require("../controllers/auth-passport-controller");
 
 const userRouter = express.Router();
 
@@ -148,6 +149,31 @@ userRouter.post("/resend-verification-email", async (req, res) => {
     res.status(400).json({
       message: error.message || "Failed to resend verification email"
     });
+  }
+});
+
+// Forgot passport (send email with reset link)
+userRouter.post('/forgot-passport', async (req, res) => {
+  try {
+    const { email } = req.body;
+    if (!email) throw new Error('Email is required');
+    const result = await forgotPassport(req, res);
+    // forgotPassport handles response, but ensure fallback
+    if (!res.headersSent) res.status(200).json(result);
+  } catch (error) {
+    res.status(400).json({ message: error.message || 'Failed to send passport reset email' });
+  }
+});
+
+// Reset passport (user submits new passport using key)
+userRouter.put('/reset-passport/:reset_passport_key', async (req, res) => {
+  try {
+    const { reset_passport_key } = req.params;
+    if (!reset_passport_key) throw new Error('Reset key is required');
+    const result = await resetPassport(req, res);
+    if (!res.headersSent) res.status(200).json(result);
+  } catch (error) {
+    res.status(400).json({ message: error.message || 'Failed to reset passport' });
   }
 });
 
