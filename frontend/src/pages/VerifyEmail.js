@@ -10,7 +10,7 @@ const VerifyEmail = () => {
   const intl = useIntl();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const [verifyAccount, { isLoading }] = useVerifyAccountMutation();
+  const [verifyAccount] = useVerifyAccountMutation();
   const [status, setStatus] = useState("verifying"); // verifying, success, error
   const [errorMessage, setErrorMessage] = useState("");
   const [countdown, setCountdown] = useState(3);
@@ -67,7 +67,7 @@ const VerifyEmail = () => {
 
   return (
     <div className="min-h-screen bg-cover bg-no-repeat bg-[position:0_-30vh] dark:bg-gray-900 px-[8%] flex items-center justify-center"
-         style={{ backgroundImage: "url('../assets/images/lightBlueBackground.png')" }}>
+      style={{ backgroundImage: "url('../assets/images/lightBlueBackground.png')" }}>
       <div className="lg:max-w-2xl lg:w-full">
         <motion.div
           {...formAnimation}
