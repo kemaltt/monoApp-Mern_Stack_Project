@@ -1,21 +1,21 @@
 const nodemailer = require('nodemailer');
 
 
-    const sendForgotPasswordEmail = async (options) => {
-        const transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: process.env.SMTP_EMAIL,
-                pass: process.env.SMTP_PASSWORD,
-            },
-        });
+const sendForgotPasswordEmail = async (options) => {
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: process.env.SMTP_EMAIL,
+            pass: process.env.SMTP_PASSWORD,
+        },
+    });
 
-        const message = {
-            // from: `${process.env.FROM_NAME} <${process.env.FROM_EMAIL}>`,
-            from: process.env.SMTP_EMAIL,
-            to: options.email,
-            subject: options.subject,
-            html: `
+    const message = {
+        // from: `${process.env.FROM_NAME} <${process.env.FROM_EMAIL}>`,
+        from: process.env.SMTP_EMAIL,
+        to: options.email,
+        subject: options.subject,
+        html: `
       <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -89,33 +89,33 @@ const nodemailer = require('nodemailer');
 </html>
       
       `
-        };
+    };
 
-        await transporter.sendMail(message)
-        // .then(() => {
-        //   console.log("Email sent successfully");
-        // }
-        // ).catch((error) => {
-        //   console.error(error);
-        // });
-    }
+    await transporter.sendMail(message)
+    // .then(() => {
+    //   console.log("Email sent successfully");
+    // }
+    // ).catch((error) => {
+    //   console.error(error);
+    // });
+}
 
 
 
-    const sendVerificationEmail = async (options) => {
-        const transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: process.env.SMTP_EMAIL,
-                pass: process.env.SMTP_PASSWORD,
-            },
-        });
+const sendVerificationEmail = async (options) => {
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: process.env.SMTP_EMAIL,
+            pass: process.env.SMTP_PASSWORD,
+        },
+    });
 
-        const message = {
-            from: process.env.SMTP_EMAIL,
-            to: options.email,
-            subject: options.subject,
-            html: `
+    const message = {
+        from: process.env.SMTP_EMAIL,
+        to: options.email,
+        subject: options.subject,
+        html: `
       <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -194,11 +194,11 @@ const nodemailer = require('nodemailer');
 </body>
 </html>
       `
-        };
+    };
 
-        await transporter.sendMail(message);
-        
-    }
+    await transporter.sendMail(message);
+
+}
 
 
 module.exports = {

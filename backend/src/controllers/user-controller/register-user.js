@@ -57,9 +57,10 @@ async function registerUser({ name, email, password, profile_image }) {
     });
 
     // Generate verification URL
-    const isProduction = process.env.API_PATH === 'production' || process.env.NODE_ENV === 'production';
-    const clientURL = isProduction ? process.env.CLIENT_URL : process.env.CLIENT_LOCAL_URL;
-    const verificationURL = `${clientURL}/verify-email?token=${verificationToken}`;
+    // const isProduction = process.env.API_PATH === 'production' || process.env.NODE_ENV === 'production';
+    // const clientURL = isProduction ? process.env.CLIENT_URL : process.env.CLIENT_LOCAL_URL;
+    // const verificationURL = `${clientURL}/verify-email?token=${verificationToken}`;
+    const verificationURL = `${process.env.API_PATH === 'production' ? process.env.CLIENT_URL : process.env.CLIENT_LOCAL_URL}/verify-email?token=${verificationToken}`;
 
     // Send verification email
     try {
