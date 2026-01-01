@@ -88,14 +88,16 @@ const Profile = () => {
             <h2 className="text-center text-black text-2xl lg:text-3xl font-semibold mt-4">{transactions.name}</h2>
             <p className="text-center text-gray-500 text-sm lg:text-base mb-8">{transactions.email}</p>
             <div className="px-[5%] lg:px-8 pb-24 lg:pb-8">
-              {/* Admin Panel - Show for all users temporarily for testing */}
-              <Link to="/admin" className="no-underline">
-                <p className="flex items-center gap-4 py-4 px-4 my-2 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-lg shadow-md hover:shadow-lg transition-all lg:py-5 lg:text-lg hover:scale-[1.02]">
-                  <MdAdminPanelSettings className="w-6 h-6 lg:w-7 lg:h-7 text-white" />
-                  <span className="text-white font-semibold"><FormattedMessage id="admin.title" /></span>
-                  <span className="ml-auto text-white text-sm">→</span>
-                </p>
-              </Link>
+              {/* Admin Panel - Only visible to admins */}
+              {isAdmin && (
+                <Link to="/admin" className="no-underline">
+                  <p className="flex items-center gap-4 py-4 px-4 my-2 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-lg shadow-md hover:shadow-lg transition-all lg:py-5 lg:text-lg hover:scale-[1.02]">
+                    <MdAdminPanelSettings className="w-6 h-6 lg:w-7 lg:h-7 text-white" />
+                    <span className="text-white font-semibold"><FormattedMessage id="admin.title" /></span>
+                    <span className="ml-auto text-white text-sm">→</span>
+                  </p>
+                </Link>
+              )}
 
               <Link to="/edit-profile" className="no-underline">
                 <p className="flex items-center gap-4 py-4 px-4 my-2 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow lg:py-5 lg:text-lg">
