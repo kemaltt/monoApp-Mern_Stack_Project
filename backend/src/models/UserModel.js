@@ -46,6 +46,28 @@ const User = new mongoose.Schema({
     enum: ['user', 'admin'],
     default: 'user'
   },
+  status: {
+    type: String,
+    enum: ['active', 'passive', 'cancelled', 'deleted'],
+    default: 'active'
+  },
+  license_type: {
+    type: String,
+    enum: ['trial', 'test_user', 'premium'],
+    default: 'trial'
+  },
+  trial_end_date: {
+    type: Date,
+    default: null
+  },
+  trial_reminder_sent: {
+    type: Array,
+    default: [] // Will store dates when reminders were sent
+  },
+  lastLogin: {
+    type: Date,
+    default: null
+  },
   profile_image: {
     type: String
   },

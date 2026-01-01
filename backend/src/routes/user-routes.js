@@ -10,6 +10,7 @@ const { registerUser } = require("../controllers/user-controller/register-user")
 const { verifyEmail } = require("../controllers/user-controller/verify-email");
 const { resendVerification } = require("../controllers/user-controller/resend-verification");
 const { showAllUser } = require("../controllers/user-controller/show-all-users");
+const { updateUserProfile } = require("../controllers/user-controller/update-user");
 const { uploadToFirebase, upload } = require("../services/file-upload.service");
 const UserModel = require("../models/UserModel");
 const { register, login, updateUser } = require("../controllers/auth-controller");
@@ -98,14 +99,14 @@ userRouter.post("/login", async (req, res) => {
       throw new Error("Password is required.");
     }
 
-    const { accessToken, refreshToken } = await loginUser({
+    const { accessToken, refreshToken , user } = await loginUser({
       email,
       password
     });
 
     req.session.refreshToken = refreshToken;
 
-    res.json({ accessToken });
+    res.json({ accessToken , user });
   } catch (err) {
     console.log(err);
     res.status(500).json({
@@ -193,11 +194,46 @@ userRouter.get("/transactions", doAuthMiddleware, async (req, res) => {
 userRouter.get("/profileInfo", doAuthMiddleware, async (req, res) => {
   try {
     const userId = req.userClaims.sub; // an den token wird erkannt, um welchen user es sich handelt...
-    const userProfile = await showMyProfile({ userId });
+    const userProfile = await showMyProfile({ userId, req });
     res.status(200).json(userProfile);
   } catch (err) {
     console.log(err);
     res.status(500).json({ err: { message: err.message } });
+  }
+});
+
+// Update user profile
+userRouter.put("/update-profile", uploadMiddleware, doAuthMiddleware, async (req, res) => {
+  try {
+    const userId = req.userClaims.sub;
+    const updateData = {};
+
+    // Name ve email güncelleme
+    if (req.body.name) updateData.name = req.body.name;
+    if (req.body.email) updateData.email = req.body.email;
+
+    // Profile image yükleme
+    if (req.file) {
+      const file = req.file;
+      const uploadedFile = await uploadToFirebase(file, "profile_image", null, userId);
+      console.log('Profile image uploaded:', uploadedFile);
+      updateData.profile_image = uploadedFile;
+    }
+
+    // Kullanıcı profilini güncelle
+    const updatedUser = await updateUserProfile({ userId, updateData, req });
+    
+    res.status(200).json({ 
+      status: 'success', 
+      message: 'Profile updated successfully', 
+      data: updatedUser 
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ 
+      status: 'error', 
+      message: err.message || 'Failed to update profile' 
+    });
   }
 });
 

@@ -7,7 +7,7 @@ function createToken(user, duration = TEN_DAYS, tokenType = "access") {
   const expiresAtTimestamp = initatedAtTimestamp + duration;
 
   const tokenPayload = {
-    sub: user._id,
+    sub: user._id.toString(),
     iat: initatedAtTimestamp,
     exp: expiresAtTimestamp,
     role: user.role || "user",

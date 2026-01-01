@@ -15,9 +15,9 @@ const authSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addMatcher(authApi.endpoints.login.matchFulfilled, (state, action) => {
-      state.user = action.payload;
+      state.user = action.payload.user; // user objesi içinde role bilgisi var
       state.isAuthenticated = true;
-      state.token = action.payload.access_token;
+      state.token = action.payload.accessToken;
     });
     builder.addMatcher(authApi.endpoints.register.matchFulfilled, (state, action) => {
       state.user = action.payload;

@@ -206,7 +206,116 @@ const sendVerificationEmail = async (options) => {
 }
 
 
+const sendTrialExpiryReminder = async (options) => {
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: process.env.SMTP_EMAIL,
+            pass: process.env.SMTP_PASSWORD,
+        },
+    });
+
+    const message = {
+        from: process.env.SMTP_EMAIL,
+        to: options.email,
+        subject: options.subject,
+        html: `
+      <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${options?.subject}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 24px;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            text-align: center;
+        }
+        .header {
+            padding: 20px;
+            border-radius: 8px 8px 0 0;
+        }
+        .header img {
+           width: 180px;
+           border-radius: 10px;
+        }
+        .content {
+            padding: 20px;
+            color: #333333;
+            line-height: 1.5;
+        }
+        .alert-box {
+            background: #FFF3CD;
+            border: 2px solid #FFC107;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 14px 35px;
+            background: #2B47FC;
+            color: white !important;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+        .button:hover {
+            background: #3A54FC;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #888888;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <img src="https://firebasestorage.googleapis.com/v0/b/golden-tempest-446213-g3.firebasestorage.app/o/ShoppingApp%2Fprivate%2Fusers%2F67744858d11b267aafd57453%2Fprofile%2Flogo.png-1736102886515?alt=media&token=7523f3fd-b12c-45dc-a42a-c6458afc609e" alt="Logo">
+        </div>
+        <div class="content">
+            <p>Hello ${options?.name},</p>
+            <div class="alert-box">
+                <h3 style="color: #856404; margin: 0;">⚠️ Your Trial is Expiring Soon!</h3>
+            </div>
+            <p>Your trial license will expire in <strong>${options?.daysRemaining} day(s)</strong>.</p>
+            <p>Expiry Date: <strong>${options?.expiryDate}</strong></p>
+            <p>Don't lose access to your account! Upgrade to Premium now to continue enjoying all features.</p>
+            <a href="${process.env.API_PATH === 'production' ? process.env.CLIENT_URL : process.env.CLIENT_LOCAL_URL}" class="button">Upgrade Now</a>
+            <p style="font-size: 14px; color: #666; margin-top: 20px;">If you have any questions, please contact our support team.</p>
+        </div>
+        <div class="footer">
+            <p>&copy; ${options?.currentYear} Your Mono App. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
+      `
+    };
+
+    await transporter.sendMail(message);
+}
+
+
 module.exports = {
     sendForgotPasswordEmail,
-    sendVerificationEmail
+    sendVerificationEmail,
+    sendTrialExpiryReminder
 };

@@ -14,7 +14,7 @@ export const apiBaseUrl =
         // localStorage'dan token'i al
         const token = localStorage.getItem('token');
         if (token) {
-          headers.set('token', `JWT ${token}`);
+          headers.set('Authorization', `Bearer ${token}`);
         }
         return headers;
       },

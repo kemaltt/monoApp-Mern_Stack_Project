@@ -1,6 +1,7 @@
 const TransactionModel = require("../models/TransactionModel");
 const UserModel = require("../models/UserModel");
 const { deleteFromFirebase } = require("../services/file-upload.service");
+const { createActivityLog } = require("../services/activity-log.service");
 
 const addTransaction = async (req, res) => {
   const { amount, income } = req.body;
@@ -15,6 +16,19 @@ const addTransaction = async (req, res) => {
     console.log(updateAmount);
 
     await UserModel.findByIdAndUpdate(userId, { $inc: { total_amount: updateAmount } }, { new: true });
+
+    // Log activity
+    const user = await UserModel.findById(userId);
+    await createActivityLog({
+      user: userId,
+      userName: user?.name || 'Unknown',
+      action: 'create',
+      resourceType: 'transaction',
+      resourceId: newTransaction._id.toString(),
+      details: { amount, income, name: req.body.name },
+      ipAddress: req.ip,
+      userAgent: req.get('user-agent'),
+    });
 
     res.status(201).json({
       ...newTransaction,
@@ -85,6 +99,19 @@ const updateTransaction = async (req, res) => {
     const updatedTransaction = await TransactionModel.findByIdAndUpdate(transactionId, req.body, { new: true });
     await UserModel.findByIdAndUpdate(userId, { $inc: { total_amount: updateAmount } }, { new: true });
 
+    // Log activity
+    const user = await UserModel.findById(userId);
+    await createActivityLog({
+      user: userId,
+      userName: user?.name || 'Unknown',
+      action: 'update',
+      resourceType: 'transaction',
+      resourceId: transactionId,
+      details: { oldAmount: transaction.amount, newAmount: amount, income },
+      ipAddress: req.ip,
+      userAgent: req.get('user-agent'),
+    });
+
     res.status(200).json(updatedTransaction);
   }
   catch (error) {
@@ -111,6 +138,20 @@ const deleteTransaction = async (req, res) => {
     if (deletedTransaction?.img?.url) {
       await deleteFromFirebase(deletedTransaction?.img?.url);
     }
+
+    // Log activity
+    const user = await UserModel.findById(userId);
+    await createActivityLog({
+      user: userId,
+      userName: user?.name || 'Unknown',
+      action: 'delete',
+      resourceType: 'transaction',
+      resourceId: transactionId,
+      details: { amount: transaction.amount, income: transaction.income, name: transaction.name },
+      ipAddress: req.ip,
+      userAgent: req.get('user-agent'),
+    });
+
     res.status(200).json({ message: "Transaction deleted successfully." });
   }
   catch (error) {

@@ -1,5 +1,6 @@
 const { TransactionsDAO, UserDAO } = require("../../db-access");
 const { makeUser } = require("../../domain/User");
+const { createActivityLog } = require("../../services/activity-log.service");
 
 async function createNewTransaction({
   userId,
@@ -8,6 +9,7 @@ async function createNewTransaction({
   createdAt,
   income,
   img,
+  req
 }) {
   const foundUser = await UserDAO.findById(userId);
 
@@ -46,6 +48,18 @@ async function createNewTransaction({
     userId,
     newTotalBalance
   );
+
+  // Activity log oluştur
+  await createActivityLog({
+    user: userId,
+    userName: user.name,
+    action: 'create',
+    resourceType: 'transaction',
+    resourceId: transactionId.toString(),
+    details: { name, amount: Number(amount), income: income === "true" },
+    ipAddress: req?.ip,
+    userAgent: req?.get('user-agent')
+  });
 
   // Transaction ID'yi döndür
   return { transactionId, insertResult, updateResult };

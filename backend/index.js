@@ -1,12 +1,15 @@
 const cors = require("cors");
 const express = require("express");
 const cookieSession = require("cookie-session");
+const cron = require("node-cron");
 const app = express();
 const PORT = process.env.PORT || 9000;
 const morgan = require("morgan");
 const { transactionsRouter } = require("./src/routes/transactions-routes");
 const { userRouter } = require("./src/routes/user-routes");
+const { adminRouter } = require("./src/routes/admin-routes");
 const { connectMongoDB } = require("./src/config/MongoDb");
+const { checkAndSendTrialReminders } = require("./src/controllers/trial-reminder-controller");
 
 // app.use(cors({ origin: [process.env.FRONTEND_URL], credentials: true }));
 //Hi
@@ -40,6 +43,7 @@ app.use(express.json());
 
 app.use(transactionsRouter);
 app.use(userRouter);
+app.use(adminRouter);
 
 
 // Routes
@@ -58,6 +62,19 @@ app.get("/ping", (req, res) => {
 connectMongoDB(PORT)
   .then(() => {
     app.listen(PORT, () => console.log(`Server Started at Port ${PORT}`));
+    
+    // Schedule trial reminder check to run daily at 8:00 AM
+    cron.schedule('0 8 * * *', async () => {
+      console.log('Running scheduled trial reminder check...');
+      try {
+        const remindersSent = await checkAndSendTrialReminders();
+        console.log(`Trial reminder check complete. ${remindersSent} reminders sent.`);
+      } catch (error) {
+        console.error('Error running trial reminder check:', error);
+      }
+    });
+    
+    console.log('Trial reminder scheduler initialized (runs daily at 8:00 AM)');
   })
   .catch((err) => {
     console.error('Failed to start server due to DB connection error', err);

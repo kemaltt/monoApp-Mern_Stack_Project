@@ -49,11 +49,15 @@ async function registerUser({ name, email, password, profile_image }) {
     );
 
     const tokenExpiry = new Date(Date.now() + 30 * 60 * 1000); // 30 minutes
+    
+    // Set trial end date (30 days from now)
+    const trialEndDate = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000); // 30 days
 
-    // Update user with verification token
+    // Update user with verification token and trial end date
     await UserDAO.updateUser(insertResult.insertedId, {
       verification_token: verificationToken,
-      verification_token_expires: tokenExpiry
+      verification_token_expires: tokenExpiry,
+      trial_end_date: trialEndDate
     });
 
     // Generate verification URL

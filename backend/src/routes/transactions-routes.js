@@ -73,7 +73,7 @@ transactionsRouter.post(
 
     try {
       // Yeni transaction oluşturuluyor
-      const addedTransaction = await createNewTransaction({ userId, img, ...req.body });
+      const addedTransaction = await createNewTransaction({ userId, img, ...req.body, req });
 
       // Eğer resim yüklendiyse Firebase'e yükle ve transaction'ı güncelle
       if (req.file) {
@@ -84,7 +84,7 @@ transactionsRouter.post(
         const { insertResult, updateResult, ...rest } = addedTransaction
         // Transaction'ı güncelle
         const updatedTransaction = await updateTransaction(
-          { ...rest, img: uploadedFile },
+          { ...rest, img: uploadedFile, req },
           userId
         );
 
@@ -122,7 +122,7 @@ transactionsRouter.delete("/transaction/delete/:id", doAuthMiddleware, async (re
 
   try {
     // Transaction'u veritabanından sil
-    const removeTransactionResult = await removeTransaction({ transactionId, userId });
+    const removeTransactionResult = await removeTransaction({ transactionId, userId, req });
     // Transaction ile ilişkili resmi sil
     if (removeTransactionResult?.value?.img?.url) {
       await deleteFromFirebase(removeTransactionResult.value.img.url);
@@ -164,6 +164,7 @@ transactionsRouter.put(
         income: income === "true" ? true : false,
         createdAt: new Date(req.body.createdAt).getTime(),
         img, // Eğer img varsa URL, yoksa null olarak atanır
+        req, // req objesini ekle
       };
 
       // Veritabanını güncelle

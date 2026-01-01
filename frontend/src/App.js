@@ -10,6 +10,9 @@ import Login from "./pages/Login";
 import VerifyEmail from "./pages/VerifyEmail";
 import ForgotPassport from "./pages/ForgotPassport";
 import ResetPassport from "./pages/ResetPassport";
+import Admin from "./pages/Admin";
+import AdminUserEdit from "./pages/AdminUserEdit";
+import AdminActivityLogs from "./pages/AdminActivityLogs";
 import Profile from "./pages/Profile";
 import Add from "./pages/Add";
 import EditExpense from "./components/forms/EditExpense";
@@ -58,6 +61,33 @@ function App() {
           <Route path="/forgot-passport" element={<ForgotPassport />} />
           <Route path="/reset-passport" element={<ResetPassport />} />
           <Route path="/verify-email" element={<VerifyEmail />} />
+
+          <Route
+            path="/admin"
+            element={
+              <AuthRequired token={token} setToken={saveToken}>
+                <Admin />
+              </AuthRequired>
+            }
+          />
+
+          <Route
+            path="/admin/users/:id"
+            element={
+              <AuthRequired token={token} setToken={saveToken}>
+                <AdminUserEdit />
+              </AuthRequired>
+            }
+          />
+
+          <Route
+            path="/admin/activity-logs"
+            element={
+              <AuthRequired token={token} setToken={saveToken}>
+                <AdminActivityLogs />
+              </AuthRequired>
+            }
+          />
 
           <Route
             path="/home"

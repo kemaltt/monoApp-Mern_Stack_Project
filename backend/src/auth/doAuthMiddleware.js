@@ -36,13 +36,13 @@ function extractTokenFromRequest(req, tokenType = "access") {
     return token;
   }
 
-  const tokenInfo = req.headers.token;
+  const tokenInfo = req.headers.authorization;
   if (!tokenInfo) {
     return null;
   }
 
   const [tokenStrategy, token] = tokenInfo.split(" ");
-  if (tokenStrategy !== "JWT" || !token) {
+  if (tokenStrategy !== "Bearer" || !token) {
     return null;
   }
 
