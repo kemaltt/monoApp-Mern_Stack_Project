@@ -12,7 +12,7 @@ const sendForgotPasswordEmail = async (options) => {
 
     const message = {
         // from: `${process.env.FROM_NAME} <${process.env.FROM_EMAIL}>`,
-        from: process.env.SMTP_EMAIL,
+        from: process.env.EMAIL_FROM,
         to: options.email,
         subject: options.subject,
         html: `
@@ -117,7 +117,7 @@ const sendVerificationEmail = async (options) => {
     });
 
     const message = {
-        from: process.env.SMTP_EMAIL,
+        from: process.env.EMAIL_FROM,
         to: options.email,
         subject: options.subject,
         html: `
@@ -216,7 +216,7 @@ const sendTrialExpiryReminder = async (options) => {
     });
 
     const message = {
-        from: process.env.SMTP_EMAIL,
+        from: process.env.EMAIL_FROM,
         to: options.email,
         subject: options.subject,
         html: `
